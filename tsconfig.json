@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "types": [
+      "@typescript-to-lua/language-extensions",
+      "lua-types/5.1",
+      "awful-types"
+    ],
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+  },
+  "tstl": {
+    "noHeader": true,
+    "noImplicitSelf": true,
+    "noImplicitGlobalVariables": true,
+    "luaTarget": "5.1",
+    "luaBundleEntry": "src/Loader.ts",
+    "luaBundle": "openPVE.lua",
+    "luaLibImport": "require-minimal",
+    "luaPlugins": [
+      // Inject Awful
+      { "name": "./plugins/inject.ts" },
+      // Wrap protected functions calls
+      { "name": "./plugins/protected.ts" },
+      // Copy loader
+      { "name": "./plugins/load.ts" }
+    ]
+  },
+  "include": ["src/**/*"],
+}
