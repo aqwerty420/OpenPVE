@@ -23,6 +23,9 @@ const mockAwfulStatusFrame = (): IAwfulStatusFrame => ({
   String: (params: IAwfulStringParams) => {
     //settings.set(params.var, params.default);
   },
+  Button: (params: IAwfulButtonParams) => {
+    //settings.set(params.var, params.default);
+  },
   Hide: () => null,
   Show: () => null,
 });
