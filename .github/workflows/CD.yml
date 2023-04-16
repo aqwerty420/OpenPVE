@@ -57,6 +57,6 @@ jobs:
         with:
           source-directory: 'dist'
           destination-github-username: 'aqwerty420'
-          destination-repository-name: 'OpenPVE'
+          destination-repository-name: 'OpenPVE-Build'
           user-email: aqwerty420@protonmail.com
           target-branch: main
