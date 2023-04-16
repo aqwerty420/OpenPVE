@@ -11,4 +11,8 @@ export class Slider {
   public Value(): number {
     return ui.settings.get(this._var) as number;
   }
+
+  public Set(value: number): void {
+    ui.settings.set(this._var, value);
+  }
 }

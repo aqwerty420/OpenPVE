@@ -1,7 +1,7 @@
 import { ui, varSettings } from '../../init';
 import { Dropdown } from './dropdown';
-import { CooldownMode } from "./modes";
-import { cooldownOptions } from "./options";
+import { CooldownMode } from './modes';
+import { cooldownOptions } from './options';
 
 export class Cooldown extends Dropdown {
   constructor(

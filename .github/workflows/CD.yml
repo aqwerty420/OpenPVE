@@ -56,7 +56,7 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source-directory: 'dist'
-          destination-github-username: ''
-          destination-repository-name: ''
+          destination-github-username: 'aqwerty420'
+          destination-repository-name: 'OpenPVE'
           user-email: aqwerty420@protonmail.com
           target-branch: main
