@@ -35,6 +35,10 @@ export class Defensive {
     return this._checkbox.Enabled();
   }
 
+  public Toggle(): void {
+    this._checkbox.Toggle();
+  }
+
   public Value(): number {
     return this._slider.Value();
   }
