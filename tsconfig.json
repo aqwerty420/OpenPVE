@@ -17,7 +17,7 @@
     "noImplicitSelf": true,
     "noImplicitGlobalVariables": true,
     "luaTarget": "5.1",
-    "luaBundleEntry": "src/Loader.ts",
+    "luaBundleEntry": "src/loader.ts",
     "luaBundle": "openPVE.lua",
     "luaLibImport": "require-minimal",
     "luaPlugins": [

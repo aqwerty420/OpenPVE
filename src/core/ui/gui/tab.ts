@@ -1,16 +1,13 @@
 import { ui } from '../';
 import { Separator } from './widgets/separator';
-import {
-  Checkbox,
-  Dropdown,
-  ItemCooldown,
-  Slider,
-  SpellCooldown,
-} from './widgets';
+import { Checkbox, Dropdown, Slider, Cooldown, Defensive } from './widgets';
 import { Delay } from './widgets/delay';
 import { Header } from './widgets/header';
-import { CooldownMode } from './widgets/modes';
-import { IDelayParams } from './widgets/params';
+import {
+  ICooldownParams,
+  IDefensivesParams,
+  IDelayParams,
+} from './widgets/params';
 
 export class Tab {
   protected readonly _tab: IAwfulTab;
@@ -35,18 +32,12 @@ export class Tab {
     this._tab.Text(params);
   }
 
-  public SpellCooldown(
-    spell: IAwfulSpell,
-    defaultValue?: CooldownMode
-  ): SpellCooldown {
-    return new SpellCooldown(this._tab, spell, defaultValue);
+  public Cooldown(params: ICooldownParams): Cooldown {
+    return new Cooldown(this._tab, params);
   }
 
-  public ItemCooldown(
-    item: IAwfulItem,
-    defaultValue?: CooldownMode
-  ): ItemCooldown {
-    return new ItemCooldown(this._tab, item, defaultValue);
+  public Defensive(params: IDefensivesParams): Defensive {
+    return new Defensive(this, params);
   }
 
   public Separator(): void {

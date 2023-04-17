@@ -18,42 +18,50 @@ export const maxSerpentSting = generalTab.Slider({
 
 export const petSlot = new PetSlotSelector();
 
-export const aMurderofCrows = cooldownsTab.SpellCooldown(
-  spells.aMurderofCrows,
-  CooldownMode.Always
-);
+export const aMurderofCrows = cooldownsTab.Cooldown({
+  var: 'aMurderofCrows',
+  usable: spells.aMurderofCrows,
+  default: CooldownMode.Always,
+});
 
-export const aspectOfTheWild = cooldownsTab.SpellCooldown(
-  spells.aspectOfTheWild,
-  CooldownMode.Toggle
-);
+export const aspectOfTheWild = cooldownsTab.Cooldown({
+  var: 'aspectOfTheWild',
+  usable: spells.aspectOfTheWild,
+  default: CooldownMode.Toggle,
+});
 
-export const barrage = cooldownsTab.SpellCooldown(
-  spells.barrage,
-  CooldownMode.Always
-);
+export const barrage = cooldownsTab.Cooldown({
+  var: 'barrage',
+  usable: spells.barrage,
+  default: CooldownMode.Always,
+});
 
-export const deathChakram = cooldownsTab.SpellCooldown(
-  spells.deathChakram,
-  CooldownMode.Always
-);
+export const deathChakram = cooldownsTab.Cooldown({
+  var: 'deathChakram',
+  usable: spells.deathChakram,
+  default: CooldownMode.Always,
+});
 
-export const explosiveShot = cooldownsTab.SpellCooldown(
-  spells.explosiveShot,
-  CooldownMode.Always
-);
+export const explosiveShot = cooldownsTab.Cooldown({
+  var: 'explosiveShot',
+  usable: spells.explosiveShot,
+  default: CooldownMode.Always,
+});
 
-export const stampede = cooldownsTab.SpellCooldown(
-  spells.stampede,
-  CooldownMode.Toggle
-);
+export const stampede = cooldownsTab.Cooldown({
+  var: 'stampede',
+  usable: spells.stampede,
+  default: CooldownMode.Toggle,
+});
 
-export const steelTrap = cooldownsTab.SpellCooldown(
-  spells.steelTrap,
-  CooldownMode.Always
-);
+export const steelTrap = cooldownsTab.Cooldown({
+  var: 'steelTrap',
+  usable: spells.steelTrap,
+  default: CooldownMode.Always,
+});
 
-export const wailingArrow = cooldownsTab.SpellCooldown(
-  spells.wailingArrow,
-  CooldownMode.Always
-);
+export const wailingArrow = cooldownsTab.Cooldown({
+  var: 'wailingArrow',
+  usable: spells.wailingArrow,
+  default: CooldownMode.Always,
+});

@@ -2,25 +2,24 @@ import { ui, varSettings } from '../../';
 import { Dropdown } from './dropdown';
 import { CooldownMode } from './modes';
 import { cooldownOptions } from './options';
+import { ICooldownParams } from './params';
 
 export class Cooldown extends Dropdown {
-  constructor(
-    tab: IAwfulTab,
-    eVar: string,
-    name: string,
-    textureId: number,
-    defaultValue = CooldownMode.Toggle
-  ) {
+  constructor(tab: IAwfulTab, params: ICooldownParams) {
     super(tab, {
-      var: eVar,
-      header: `${awful.textureEscape(textureId, 20)} - ${name}`,
+      var: params.var,
+      header: params.usable
+        ? `${awful.textureEscape(params.usable.id, 20)} - ${params.usable.name}`
+        : params.header,
       options: cooldownOptions,
-      tooltip: `${name} usage mode.`,
-      default: defaultValue,
+      tooltip: params.usable
+        ? `${params.usable.name} usage mode.`
+        : params.tooltip,
+      default: params.default ?? CooldownMode.Toggle,
     });
   }
 
-  public Enabled(ignoreTTD = false): boolean {
+  public Usable(ignoreTTD = false): boolean {
     const value = this.Value() as CooldownMode;
 
     return (
@@ -34,19 +33,5 @@ export class Cooldown extends Dropdown {
         (value == CooldownMode.MiniToggle &&
           (ui.settings.get(varSettings.mCdsToggleVar) as boolean)))
     );
-  }
-}
-
-export class SpellCooldown extends Cooldown {
-  constructor(tab: IAwfulTab, spell: IAwfulSpell, defaultValue?: CooldownMode) {
-    //TODO: var name
-    super(tab, `${spell.id}Mode`, spell['name'], spell.id, defaultValue);
-  }
-}
-
-export class ItemCooldown extends Cooldown {
-  constructor(tab: IAwfulTab, item: IAwfulItem, defaultValue?: CooldownMode) {
-    //TODO: var name
-    super(tab, `${item.id}Mode`, item.name, item.id, defaultValue);
   }
 }
