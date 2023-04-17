@@ -1,4 +1,4 @@
-import { ui } from '../../init';
+import { ui } from '../../';
 
 export class Dropdown {
   private readonly _var: string;

@@ -1,5 +1,5 @@
 import { Tab } from '../tab';
-import { DelayParams } from './params';
+import { IDelayParams } from './params';
 import { Slider } from './slider';
 
 export class Delay {
@@ -8,7 +8,7 @@ export class Delay {
   private readonly _delays: { [min: number]: { [max: number]: IAwfulDelay } } =
     {};
 
-  constructor(tab: Tab, params: DelayParams) {
+  constructor(tab: Tab, params: IDelayParams) {
     this._minDelay = tab.Slider({
       var: `${params.var}Min`,
       text: `${params.text} min delay`,

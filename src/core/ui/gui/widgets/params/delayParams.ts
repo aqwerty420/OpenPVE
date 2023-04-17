@@ -1,4 +1,4 @@
-export interface DelayParams {
+export interface IDelayParams {
   var: string;
   text: string;
 }

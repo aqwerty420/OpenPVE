@@ -1,4 +1,4 @@
-import { ui } from '../init';
+import { ui } from '../';
 import { Tab } from './tab';
 
 export class Group {

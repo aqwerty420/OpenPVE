@@ -1,4 +1,4 @@
-import { ui, varSettings } from '../../init';
+import { ui, varSettings } from '../../';
 import { Dropdown } from './dropdown';
 import { CooldownMode } from './modes';
 import { cooldownOptions } from './options';
@@ -9,7 +9,7 @@ export class Cooldown extends Dropdown {
     eVar: string,
     name: string,
     textureId: number,
-    defaultValue = CooldownMode.toggle
+    defaultValue = CooldownMode.Toggle
   ) {
     super(tab, {
       var: eVar,
@@ -28,10 +28,10 @@ export class Cooldown extends Dropdown {
         (!ui.settings.get(varSettings.minTTDVar) as boolean) ||
         awful.FightRemains() >
           (ui.settings.get(varSettings.minTTDValueVar) as number)) &&
-      (value === CooldownMode.always ||
-        ((value === CooldownMode.toggle || value == CooldownMode.miniToggle) &&
+      (value === CooldownMode.Always ||
+        ((value === CooldownMode.Toggle || value == CooldownMode.MiniToggle) &&
           (ui.settings.get(varSettings.cdsToggleVar) as boolean)) ||
-        (value == CooldownMode.miniToggle &&
+        (value == CooldownMode.MiniToggle &&
           (ui.settings.get(varSettings.mCdsToggleVar) as boolean)))
     );
   }

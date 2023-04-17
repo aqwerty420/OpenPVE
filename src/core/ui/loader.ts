@@ -1,4 +1,4 @@
-import { varSettings } from './init';
+import { varSettings } from './';
 import {
   CooldownsToggle,
   RotationModeSwitch,
@@ -24,7 +24,7 @@ export const mCooldownsToggle = new CooldownsToggle(
   'M.Cds: '
 );
 
-const generalTab = new Tab('General');
+export const generalTab = new Tab('General');
 
 generalTab.Header({
   text: 'Fight',
@@ -51,7 +51,7 @@ export const autoTarget = generalTab.Checkbox({
 
 //TODO: dynamic targetting modes (most hp, closest enemy, highest threat, etc)
 
-const cooldownsTab = new Tab('Cooldowns');
+export const cooldownsTab = new Tab('Cooldowns');
 
 cooldownsTab.Header({
   text: 'TTD Checker',

@@ -1,4 +1,4 @@
-import { ui } from '../init';
+import { ui } from '../';
 import { Separator } from './widgets/separator';
 import {
   Checkbox,
@@ -10,7 +10,7 @@ import {
 import { Delay } from './widgets/delay';
 import { Header } from './widgets/header';
 import { CooldownMode } from './widgets/modes';
-import { DelayParams } from './widgets/params';
+import { IDelayParams } from './widgets/params';
 
 export class Tab {
   protected readonly _tab: IAwfulTab;
@@ -57,7 +57,7 @@ export class Tab {
     new Header(this._tab, params);
   }
 
-  public Delay(params: DelayParams): Delay {
+  public Delay(params: IDelayParams): Delay {
     return new Delay(this, params);
   }
 }
