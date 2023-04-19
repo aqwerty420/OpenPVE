@@ -26,7 +26,9 @@
       // Wrap protected functions calls
       { "name": "./plugins/protected.ts" },
       // Copy loader
-      { "name": "./plugins/load.ts" }
+      { "name": "./plugins/load.ts" },
+      // Cleaner
+      { "name": "./plugins/clean.ts" }
     ]
   },
   "include": ["src/**/*"],
