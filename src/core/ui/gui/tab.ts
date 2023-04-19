@@ -1,12 +1,20 @@
 import { ui } from '../';
-import { Separator } from './widgets/separator';
-import { Checkbox, Dropdown, Slider, Cooldown, Defensive } from './widgets';
-import { Delay } from './widgets/delay';
-import { Header } from './widgets/header';
+import {
+  Checkbox,
+  Dropdown,
+  Slider,
+  Cooldown,
+  Defensive,
+  Delay,
+  Header,
+  Separator,
+  Interrupt,
+} from './widgets';
 import {
   ICooldownParams,
   IDefensivesParams,
   IDelayParams,
+  IInterruptParams,
 } from './widgets/params';
 
 export class Tab {
@@ -40,6 +48,10 @@ export class Tab {
 
   public Defensive(params: IDefensivesParams): Defensive {
     return new Defensive(this, params);
+  }
+
+  public Interrupt(params: IInterruptParams): Interrupt {
+    return new Interrupt(this._tab, params);
   }
 
   public Separator(): void {

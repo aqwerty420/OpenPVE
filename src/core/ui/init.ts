@@ -40,4 +40,6 @@ export const varSettings = {
   mCdsToggleVar: 'mCdsToggle',
   mCdsDisableVar: 'mCdsDisable',
   mCdsDisableValueVar: 'mCdsDisableValue',
+  interruptsVar: 'interrupts',
+  defensivesVar: 'defensives',
 };

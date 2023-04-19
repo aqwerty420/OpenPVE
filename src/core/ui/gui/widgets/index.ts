@@ -3,3 +3,7 @@ export * from './dropdown';
 export * from './slider';
 export * from './cooldown';
 export * from './defensive';
+export * from './delay';
+export * from './header';
+export * from './interrupt';
+export * from './separator';

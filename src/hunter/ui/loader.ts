@@ -1,5 +1,5 @@
 import { CooldownMode } from '../../core/ui/gui/widgets/modes';
-import { cooldownsTab, generalTab } from '../../core/ui/loader';
+import { cooldownsTab, generalTab, interruptsTab } from '../../core/ui/loader';
 import * as spells from '../spells';
 import { MisdirectionModeSelector } from './gui/widgets';
 import { PetSlotSelector } from './statusFrame';
@@ -20,7 +20,7 @@ export const petSlot = new PetSlotSelector();
 
 //#region Cooldowns
 
-//#region Hunter
+//#region Cooldowns - Hunter
 
 export const aMurderofCrows = cooldownsTab.Cooldown({
   var: 'aMurderofCrows',
@@ -70,9 +70,9 @@ export const wailingArrow = cooldownsTab.Cooldown({
   default: CooldownMode.Always,
 });
 
-//#endregion Hunter
+//#endregion Cooldowns - Hunter
 
-//#region Beast Mastery
+//#region Cooldowns - Beast Mastery
 
 export const bestialWrath = cooldownsTab.Cooldown({
   var: 'bestialWrath',
@@ -98,6 +98,28 @@ export const direBeast = cooldownsTab.Cooldown({
   default: CooldownMode.Always,
 });
 
-//#endregion Beast Mastery
+//#endregion Cooldowns - Beast Mastery
 
 //#endregion Cooldowns
+
+//#region Interrupts
+
+export const counterShot = interruptsTab.Interrupt({
+  var: 'counterShot',
+  usable: spells.counterShot,
+  default: true,
+});
+
+export const freezingTrap = interruptsTab.Interrupt({
+  var: 'freezingTrap',
+  usable: spells.freezingTrap,
+  default: true,
+});
+
+export const intimidation = interruptsTab.Interrupt({
+  var: 'intimidation',
+  usable: spells.intimidation,
+  default: true,
+});
+
+//#endregion Interrupts

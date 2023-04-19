@@ -3,6 +3,7 @@ import {
   CooldownsToggle,
   RotationModeSwitch,
   RotationToggle,
+  Toggle,
 } from './statusFrame';
 import { Tab } from './gui';
 
@@ -23,6 +24,8 @@ export const mCooldownsToggle = new CooldownsToggle(
   varSettings.mCdsDisableValueVar,
   'M.Cds: '
 );
+
+export const interrupts = new Toggle(varSettings.interruptsVar, 'Int: ');
 
 export const generalTab = new Tab('General');
 
@@ -118,7 +121,7 @@ export const mCdsDisablerValue = cooldownsTab.Slider({
 
 cooldownsTab.Separator();
 
-const interruptsTab = new Tab('Interrupts');
+export const interruptsTab = new Tab('Interrupts');
 
 interruptsTab.Header({
   text: 'Conditions',
