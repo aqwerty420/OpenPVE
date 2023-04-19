@@ -4,7 +4,7 @@ import * as spells from '../../../spells';
 import { MisdirectionMode } from './modes';
 import { misdirectionOptions } from './options';
 
-export class MisdirectionModeSelector extends Dropdown {
+export class MisdirectionModeSelector extends Dropdown<MisdirectionMode> {
   constructor() {
     const name = spells.misdirection['name'];
 
