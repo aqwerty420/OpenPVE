@@ -1,7 +1,7 @@
 export enum MisdirectionMode {
-  Smart = 'smart',
-  Engage = 'engage',
-  Aggro = 'aggro',
-  Always = 'always',
-  Never = 'never',
+  Smart = 0,
+  Engage = 1,
+  Aggro = 2,
+  Always = 3,
+  Never = 4,
 }

@@ -18,6 +18,10 @@ export const maxSerpentSting = generalTab.Slider({
 
 export const petSlot = new PetSlotSelector();
 
+//#region Cooldowns
+
+//#region Hunter
+
 export const aMurderofCrows = cooldownsTab.Cooldown({
   var: 'aMurderofCrows',
   usable: spells.aMurderofCrows,
@@ -65,3 +69,35 @@ export const wailingArrow = cooldownsTab.Cooldown({
   usable: spells.wailingArrow,
   default: CooldownMode.Always,
 });
+
+//#endregion Hunter
+
+//#region Beast Mastery
+
+export const bestialWrath = cooldownsTab.Cooldown({
+  var: 'bestialWrath',
+  usable: spells.bestialWrath,
+  default: CooldownMode.MiniToggle,
+});
+
+export const bloodshed = cooldownsTab.Cooldown({
+  var: 'bloodshed',
+  usable: spells.bloodshed,
+  default: CooldownMode.Always,
+});
+
+export const callOfTheWild = cooldownsTab.Cooldown({
+  var: 'callOfTheWild',
+  usable: spells.callOfTheWild,
+  default: CooldownMode.Toggle,
+});
+
+export const direBeast = cooldownsTab.Cooldown({
+  var: 'direBeast',
+  usable: spells.direBeast,
+  default: CooldownMode.Always,
+});
+
+//#endregion Beast Mastery
+
+//#endregion Cooldowns

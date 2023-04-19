@@ -3,11 +3,11 @@ import { Checkbox, Slider } from './';
 import { IDefensivesParams } from './params';
 
 export class Defensive {
-  private readonly _checkbox: Checkbox;
-  private readonly _slider: Slider;
+  public readonly checkbox: Checkbox;
+  public readonly slider: Slider;
 
   constructor(tab: Tab, params: IDefensivesParams) {
-    this._checkbox = tab.Checkbox({
+    this.checkbox = tab.Checkbox({
       var: `${params.var}State`,
       text: params.usable
         ? `${awful.textureEscape(params.usable.id, 20)} - ${params.usable.name}`
@@ -18,7 +18,7 @@ export class Defensive {
       default: params.enabled,
     });
 
-    this._slider = tab.Slider({
+    this.slider = tab.Slider({
       var: `${params.var}Value`,
       text: '',
       tooltip: params.usable
@@ -31,23 +31,7 @@ export class Defensive {
     });
   }
 
-  public Enabled(): boolean {
-    return this._checkbox.Enabled();
-  }
-
-  public Toggle(): void {
-    this._checkbox.Toggle();
-  }
-
-  public Value(): number {
-    return this._slider.Value();
-  }
-
-  public Set(value: number): void {
-    this._slider.Set(value);
-  }
-
   public Usable(): boolean {
-    return this.Enabled() && awful.player.hp <= this.Value();
+    return this.checkbox.Enabled() && awful.player.hp <= this.slider.Value();
   }
 }

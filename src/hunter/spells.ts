@@ -1,6 +1,6 @@
 const newSpell = awful.NewSpell;
 
-// General
+//#region Offensive
 
 export const autoShot = newSpell(75, {
   targeted: true,
@@ -49,7 +49,9 @@ export const serpentSting = newSpell(271788, {
   damage: AwfulSpellType.magic,
 });
 
-// Cooldowns
+//#endregion Offensives
+
+//#region Cooldowns
 
 export const aMurderofCrows = newSpell(131894, {
   targeted: true,
@@ -115,7 +117,9 @@ export const stampede = newSpell(201430, {
   damage: AwfulSpellType.physical,
 });
 
-// Utility
+//#endregion Cooldowns
+
+//#region Utilities
 
 export const muzzle = newSpell(187707, {
   targeted: true,
@@ -181,7 +185,9 @@ export const counterShot = newSpell(147362, {
   ranged: true,
 });
 
-// Defensives
+//#endregion Utilities
+
+//#region Defensives
 
 export const exhilaration = newSpell(109304, {
   targeted: false,
@@ -199,7 +205,9 @@ export const fortitudeOfTheBear = newSpell(388035, {
   targeted: false,
 });
 
-// Pet
+//#endregion Defensives
+
+//#region Pet
 
 export const mendRevivePet = newSpell(982, { targeted: false });
 
@@ -213,7 +221,9 @@ export const callPet4 = newSpell(83244, { targeted: false });
 
 export const callPet5 = newSpell(83245, { targeted: false });
 
-// Racials
+//#endregion Pet
+
+//#region Racials
 
 export const bloodFury = awful.NewSpell(20572, { targeted: false });
 
@@ -237,3 +247,5 @@ export const bagOfTricks = awful.NewSpell(312411, {
 export const berserking = awful.NewSpell(26297, { targeted: false });
 
 export const arcaneTorrent = awful.NewSpell(25046, { targeted: false });
+
+//#endregion Racials

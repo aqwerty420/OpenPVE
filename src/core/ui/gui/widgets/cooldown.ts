@@ -4,7 +4,7 @@ import { CooldownMode } from './modes';
 import { cooldownOptions } from './options';
 import { ICooldownParams } from './params';
 
-export class Cooldown extends Dropdown {
+export class Cooldown extends Dropdown<CooldownMode> {
   constructor(tab: IAwfulTab, params: ICooldownParams) {
     super(tab, {
       var: params.var,
@@ -20,7 +20,7 @@ export class Cooldown extends Dropdown {
   }
 
   public Usable(ignoreTTD = false): boolean {
-    const value = this.Value() as CooldownMode;
+    const value = this.Value();
 
     return (
       (ignoreTTD ||
