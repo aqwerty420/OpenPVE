@@ -8,7 +8,6 @@ import {
   IDefensivesParams,
   IDelayParams,
 } from './widgets/params';
-import { DropdownValueType } from './widgets/types';
 
 export class Tab {
   protected readonly _tab: IAwfulTab;
@@ -21,7 +20,7 @@ export class Tab {
     return new Checkbox(this._tab, params);
   }
 
-  public Dropdown<T extends DropdownValueType>(
+  public Dropdown<T extends IAwfulDropdownParams['default']>(
     params: IAwfulDropdownParams
   ): Dropdown<T> {
     return new Dropdown(this._tab, params);

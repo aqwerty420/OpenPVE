@@ -1,7 +1,6 @@
 import { ui } from '../../';
-import { DropdownValueType } from './types';
 
-export class Dropdown<T extends DropdownValueType> {
+export class Dropdown<T extends IAwfulDropdownParams['default']> {
   private readonly _var: string;
 
   constructor(tab: IAwfulTab, params: IAwfulDropdownParams) {
