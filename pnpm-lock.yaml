@@ -17,8 +17,8 @@ devDependencies:
     specifier: ^1.0.0
     version: 1.0.0
   awful-types:
-    specifier: ^1.7.0
-    version: 1.7.0(@types/node@18.15.11)
+    specifier: ^2.0.0
+    version: 2.0.0(@types/node@18.15.11)
   eslint:
     specifier: 8.38.0
     version: 8.38.0
@@ -1099,14 +1099,14 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /awful-types@1.7.0(@types/node@18.15.11):
-    resolution: {integrity: sha512-6u48pdHuytvRy3wkwT+j6mpzHtSUm8dyXaw+h+fxTMNggH0VsxiAeEeVSM/9sDdKoHe+lcPLKSJiF6016LvR0g==}
+  /awful-types@2.0.0(@types/node@18.15.11):
+    resolution: {integrity: sha512-sixwTvYEHwk3apT/7zpgrdifXywIVq+7SimR3Qf8giPisSeE8IzdHbPjARF4EQghm3nsxiotxFHeUA15cgfACg==}
     dependencies:
       '@typescript-to-lua/language-extensions': 1.0.0
       lua-types: 2.13.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.4)
-      typescript: 4.9.4
-      typescript-to-lua: 1.11.1(typescript@4.9.4)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@5.0.4)
+      typescript: 5.0.4
+      typescript-to-lua: 1.11.1(typescript@5.0.4)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -3021,37 +3021,6 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /ts-node@10.9.1(@types/node@18.15.11)(typescript@4.9.4):
-    resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
-    hasBin: true
-    peerDependencies:
-      '@swc/core': '>=1.2.50'
-      '@swc/wasm': '>=1.2.50'
-      '@types/node': '*'
-      typescript: '>=2.7'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      '@swc/wasm':
-        optional: true
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.9
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.3
-      '@types/node': 18.15.11
-      acorn: 8.8.2
-      acorn-walk: 8.2.0
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 4.9.4
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
-    dev: true
-
   /ts-node@10.9.1(@types/node@18.15.11)(typescript@5.0.4):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
@@ -3123,7 +3092,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /typescript-to-lua@1.11.1(typescript@4.9.4):
+  /typescript-to-lua@1.11.1(typescript@5.0.4):
     resolution: {integrity: sha512-XxGOf0zBRrMocGr4BbVaJdnvnk4yTrUs0BCdamfb/Qg94hKZg8ydRUy17ZtHZfYmnwFupR88R5DZXIpHYP0S5g==}
     engines: {node: '>=16.10.0'}
     hasBin: true
@@ -3134,7 +3103,7 @@ packages:
       enhanced-resolve: 5.12.0
       resolve: 1.22.2
       source-map: 0.7.4
-      typescript: 4.9.4
+      typescript: 5.0.4
     dev: true
 
   /typescript-to-lua@1.14.0(typescript@5.0.4):
@@ -3149,12 +3118,6 @@ packages:
       resolve: 1.22.2
       source-map: 0.7.4
       typescript: 5.0.4
-    dev: true
-
-  /typescript@4.9.4:
-    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
     dev: true
 
   /typescript@5.0.4:

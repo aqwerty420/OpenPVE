@@ -1,9 +1,11 @@
 interface IOpenPVE {
   hunter: {
-    beastMastery?: IAwfulSpecialization;
-    marksmanship?: IAwfulSpecialization;
-    survival?: IAwfulSpecialization;
+    beastMastery?: AwfulSpecialization;
+    marksmanship?: AwfulSpecialization;
+    survival?: AwfulSpecialization;
   };
 }
+
+declare function GetSpellDescription(spellId: number): string;
 
 declare const openPVE: IOpenPVE;

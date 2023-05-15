@@ -1,12 +1,11 @@
-import { CooldownMode } from '../../core/ui/gui/widgets/modes';
-import { cooldownsTab, generalTab, interruptsTab } from '../../core/ui/loader';
-import * as spells from '../spells';
-import { MisdirectionModeSelector } from './gui/widgets';
-import { PetSlotSelector } from './statusFrame';
+import { CooldownMode } from '../core/components';
+import * as globalUI from '../core/ui';
+import { MisdirectionModeSelector, PetSlotSelector } from './components';
+import * as spells from './spells';
 
 export const misdirectionMode = new MisdirectionModeSelector();
 
-export const maxSerpentSting = generalTab.Slider({
+export const maxSerpentSting = globalUI.generalTab.slider({
   var: 'maxSerpentSting',
   text: 'Max Serpent Sting',
   tooltip: 'Maximum number of Serpent Sting active.',
@@ -22,49 +21,49 @@ export const petSlot = new PetSlotSelector();
 
 //#region Cooldowns - Hunter
 
-export const aMurderofCrows = cooldownsTab.Cooldown({
+export const aMurderofCrows = globalUI.cooldownsTab.cooldown({
   var: 'aMurderofCrows',
   usable: spells.aMurderofCrows,
   default: CooldownMode.Always,
 });
 
-export const aspectOfTheWild = cooldownsTab.Cooldown({
+export const aspectOfTheWild = globalUI.cooldownsTab.cooldown({
   var: 'aspectOfTheWild',
   usable: spells.aspectOfTheWild,
   default: CooldownMode.Toggle,
 });
 
-export const barrage = cooldownsTab.Cooldown({
+export const barrage = globalUI.cooldownsTab.cooldown({
   var: 'barrage',
   usable: spells.barrage,
   default: CooldownMode.Always,
 });
 
-export const deathChakram = cooldownsTab.Cooldown({
+export const deathChakram = globalUI.cooldownsTab.cooldown({
   var: 'deathChakram',
   usable: spells.deathChakram,
   default: CooldownMode.Always,
 });
 
-export const explosiveShot = cooldownsTab.Cooldown({
+export const explosiveShot = globalUI.cooldownsTab.cooldown({
   var: 'explosiveShot',
   usable: spells.explosiveShot,
   default: CooldownMode.Always,
 });
 
-export const stampede = cooldownsTab.Cooldown({
+export const stampede = globalUI.cooldownsTab.cooldown({
   var: 'stampede',
   usable: spells.stampede,
   default: CooldownMode.Toggle,
 });
 
-export const steelTrap = cooldownsTab.Cooldown({
+export const steelTrap = globalUI.cooldownsTab.cooldown({
   var: 'steelTrap',
   usable: spells.steelTrap,
   default: CooldownMode.Always,
 });
 
-export const wailingArrow = cooldownsTab.Cooldown({
+export const wailingArrow = globalUI.cooldownsTab.cooldown({
   var: 'wailingArrow',
   usable: spells.wailingArrow,
   default: CooldownMode.Always,
@@ -74,25 +73,25 @@ export const wailingArrow = cooldownsTab.Cooldown({
 
 //#region Cooldowns - Beast Mastery
 
-export const bestialWrath = cooldownsTab.Cooldown({
+export const bestialWrath = globalUI.cooldownsTab.cooldown({
   var: 'bestialWrath',
   usable: spells.bestialWrath,
   default: CooldownMode.MiniToggle,
 });
 
-export const bloodshed = cooldownsTab.Cooldown({
+export const bloodshed = globalUI.cooldownsTab.cooldown({
   var: 'bloodshed',
   usable: spells.bloodshed,
   default: CooldownMode.Always,
 });
 
-export const callOfTheWild = cooldownsTab.Cooldown({
+export const callOfTheWild = globalUI.cooldownsTab.cooldown({
   var: 'callOfTheWild',
   usable: spells.callOfTheWild,
   default: CooldownMode.Toggle,
 });
 
-export const direBeast = cooldownsTab.Cooldown({
+export const direBeast = globalUI.cooldownsTab.cooldown({
   var: 'direBeast',
   usable: spells.direBeast,
   default: CooldownMode.Always,
@@ -104,19 +103,19 @@ export const direBeast = cooldownsTab.Cooldown({
 
 //#region Interrupts
 
-export const counterShot = interruptsTab.Interrupt({
+export const counterShot = globalUI.interruptsTab.interrupt({
   var: 'counterShot',
   usable: spells.counterShot,
   default: true,
 });
 
-export const freezingTrap = interruptsTab.Interrupt({
+export const freezingTrap = globalUI.interruptsTab.interrupt({
   var: 'freezingTrap',
   usable: spells.freezingTrap,
   default: true,
 });
 
-export const intimidation = interruptsTab.Interrupt({
+export const intimidation = globalUI.interruptsTab.interrupt({
   var: 'intimidation',
   usable: spells.intimidation,
   default: true,

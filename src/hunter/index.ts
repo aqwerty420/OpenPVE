@@ -3,7 +3,7 @@ export const load = () => {
 
   openPVE.hunter.beastMastery = awful.Actor.New({
     spec: AwfulSpecs.First,
-    class: AwfulClasses.hunter,
+    class: AwfulClasses.Hunter,
   });
 
   openPVE.hunter.beastMastery.Init(() => {

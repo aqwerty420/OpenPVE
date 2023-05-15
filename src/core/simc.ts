@@ -1,4 +1,4 @@
-export const fullRechargeTime = (spell: IAwfulSpell): number => {
+export const fullRechargeTime = (spell: AwfulSpell): number => {
   const [currentCharges, maxCharges, cooldownStart, cooldownDuration] =
     GetSpellCharges(spell.id);
 
@@ -40,31 +40,31 @@ export const executeTime = (baseTime: number): number => {
   return baseTime / (1 + haste / 100);
 };
 
-export const isRefreshable = (
-  unit: IAwfulUnit,
-  debuffId: number,
-  duration: number
-): boolean => {
-  const remains = unit.debuffRemains(debuffId, awful.player);
-
-  return remains <= (duration - remains) * 0.3;
-};
-
-export const castRegen = (spell: IAwfulSpell, tooltip = 0): number => {
+export const castRegen = (spell: AwfulSpell): number => {
   const regen = regenRate();
-  let castTime = spell.castTime;
 
+  const spellDescription = GetSpellDescription(spell.id);
+  const [generates] = string.gsub(spellDescription, '%D+', '');
+  const tooltip = tonumber(string.sub(generates, -2)) || 0;
+
+  let castTime = spell.castTime;
   if (castTime === 0 || castTime < awful.gcd) castTime = awful.gcd;
 
   return regen * castTime + tooltip;
 };
 
-export const isRefreshableBuff = (
-  unit: IAwfulUnit,
-  buffId: number,
-  duration: number
-): boolean => {
-  const remains = unit.buffRemains(buffId);
+const isRefreshable = (buffInfos?: LuaMultiReturn<Aura>): boolean => {
+  if (!buffInfos) return true;
+
+  const duration = buffInfos[4];
+  const expirationTime = buffInfos[5];
+  const remains = expirationTime - awful.time;
 
   return remains <= (duration - remains) * 0.3;
 };
+
+export const isRefreshableDebuff = (unit: AwfulUnit, buffId: number): boolean =>
+  isRefreshable(unit.debuff(buffId));
+
+export const isRefreshableBuff = (unit: AwfulUnit, buffId: number): boolean =>
+  isRefreshable(unit.buff(buffId));

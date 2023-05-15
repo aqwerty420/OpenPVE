@@ -5,8 +5,7 @@
   "scripts": {
     "build": "tstl",
     "dev": "tstl --watch",
-    "clean": "rimraf dist/*",
-    "test": "jest"
+    "clean": "rimraf dist/*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
@@ -14,7 +13,7 @@
     "@typescript-eslint/eslint-plugin": "5.59.0",
     "@typescript-eslint/parser": "5.59.0",
     "@typescript-to-lua/language-extensions": "^1.0.0",
-    "awful-types": "^1.7.0",
+    "awful-types": "^2.0.0",
     "eslint": "8.38.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",

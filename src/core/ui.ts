@@ -1,11 +1,11 @@
-import { varSettings } from './';
 import {
   CooldownsToggle,
   RotationModeSwitch,
   RotationToggle,
+  Tab,
   Toggle,
-} from './statusFrame';
-import { Tab } from './gui';
+  varSettings,
+} from './components';
 
 export const rotationToggle = new RotationToggle();
 
@@ -29,24 +29,24 @@ export const interrupts = new Toggle(varSettings.interruptsVar, 'Int: ');
 
 export const generalTab = new Tab('General');
 
-generalTab.Header({
+generalTab.header({
   text: 'Fight',
 });
 
-export const startCombat = generalTab.Checkbox({
+export const startCombat = generalTab.checkbox({
   var: 'startCombat',
   text: 'Start Combat',
   tooltip: 'Engage combat when the target is in range.',
 });
 
-generalTab.Separator();
+generalTab.separator();
 
-generalTab.Header({
+generalTab.header({
   text: 'Targeting',
 });
 
 //TODO: auto target modes
-export const autoTarget = generalTab.Checkbox({
+export const autoTarget = generalTab.checkbox({
   var: 'autoTarget',
   text: 'Auto Target',
   tooltip: 'Automatically swap to the best target when the current one dies.',
@@ -56,18 +56,18 @@ export const autoTarget = generalTab.Checkbox({
 
 export const cooldownsTab = new Tab('Cooldowns');
 
-cooldownsTab.Header({
+cooldownsTab.header({
   text: 'TTD Checker',
 });
 
-export const checkMinTTD = cooldownsTab.Checkbox({
+export const checkMinTTD = cooldownsTab.checkbox({
   var: varSettings.minTTDVar,
   text: 'Check for minimum TTD',
   tooltip: 'Check for minimum TTD before using cooldowns.',
   default: false,
 });
 
-export const minTTD = cooldownsTab.Slider({
+export const minTTD = cooldownsTab.slider({
   var: varSettings.minTTDValueVar,
   text: 'Minimum TTD',
   tooltip: 'Minimum TTD to use cooldowns.',
@@ -78,20 +78,20 @@ export const minTTD = cooldownsTab.Slider({
   step: 1,
 });
 
-cooldownsTab.Separator();
+cooldownsTab.separator();
 
-cooldownsTab.Header({
+cooldownsTab.header({
   text: 'Cooldowns Disabler',
 });
 
-export const cdsDisabler = cooldownsTab.Checkbox({
+export const cdsDisabler = cooldownsTab.checkbox({
   var: varSettings.cdsDisableVar,
   text: 'Disable Cooldowns',
   tooltip: 'Disable cooldowns after a certain amount of time.',
   default: false,
 });
 
-export const cdsDisablerValue = cooldownsTab.Slider({
+export const cdsDisablerValue = cooldownsTab.slider({
   var: varSettings.cdsDisableValueVar,
   text: 'Disable Cooldowns After',
   tooltip: 'Disable cooldowns after set amount of time.',
@@ -102,14 +102,14 @@ export const cdsDisablerValue = cooldownsTab.Slider({
   step: 1,
 });
 
-export const mCdsDisabler = cooldownsTab.Checkbox({
+export const mCdsDisabler = cooldownsTab.checkbox({
   var: varSettings.mCdsDisableVar,
   text: 'Disable Mini Cooldowns',
   tooltip: 'Disable mini cooldowns after a certain amount of time.',
   default: false,
 });
 
-export const mCdsDisablerValue = cooldownsTab.Slider({
+export const mCdsDisablerValue = cooldownsTab.slider({
   var: varSettings.mCdsDisableValueVar,
   text: 'Disable Mini Cooldowns After',
   tooltip: 'Disable mini cooldowns after set amount of time.',
@@ -119,28 +119,28 @@ export const mCdsDisablerValue = cooldownsTab.Slider({
   valueType: 'sec',
 });
 
-cooldownsTab.Separator();
+cooldownsTab.separator();
 
 export const interruptsTab = new Tab('Interrupts');
 
-interruptsTab.Header({
+interruptsTab.header({
   text: 'Conditions',
 });
 
-export const whitelist = interruptsTab.Checkbox({
+export const whitelist = interruptsTab.checkbox({
   var: 'interruptWhitelist',
   text: 'Whitelisted Only',
   tooltip: 'Only interrupt spells on the whitelist.',
   default: false,
 });
 
-export const focus = interruptsTab.Checkbox({
+export const focus = interruptsTab.checkbox({
   var: 'interruptFocus',
   text: 'Focus Only',
   tooltip: 'Only interrupt spells from the focus target.',
 });
 
-export const minCastPercent = interruptsTab.Slider({
+export const minCastPercent = interruptsTab.slider({
   var: 'minCastPercent',
   text: 'Min. cast %',
   tooltip: 'Interrupt spells when they are at least this % cast.',
@@ -151,15 +151,13 @@ export const minCastPercent = interruptsTab.Slider({
   step: 5,
 });
 
-export const interruptDelay = interruptsTab.Delay({
+export const interruptDelay = interruptsTab.delay({
   var: 'interrupt',
   text: 'Interrupt',
 });
 
-generalTab.Separator();
+generalTab.separator();
 
-interruptsTab.Header({
+interruptsTab.header({
   text: 'Spells',
 });
-
-export const defensivesTab = new Tab('Defensives');

@@ -71,9 +71,9 @@ export const hunterTalents = {
   wailingArrow: 392060,
 };
 
-export const enum Bombs {
-  wildfireBomb = 259495,
-  pheromoneBomb = 270323,
-  shrapnelBomb = 270335,
-  volatileBomb = 271045,
+export const enum Bomb {
+  Wildfire = 259495,
+  Pheromone = 270323,
+  Shrapnel = 270335,
+  Volatile = 271045,
 }

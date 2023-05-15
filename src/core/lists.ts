@@ -576,17 +576,36 @@ const stunChannelingData = [
 
 const bypassThreatData = [197398, 195138, 194999];
 
+export const enemyBuffs = {
+  inspiringPresence: 343502,
+  sentinelsWatch: 215435,
+  iceShield: 372749,
+  iceBulwark: 372988,
+};
+
+export const kickImmuneData = [
+  enemyBuffs.sentinelsWatch,
+  enemyBuffs.iceShield,
+  enemyBuffs.iceBulwark,
+];
+
+export const stunImmuneData = [
+  enemyBuffs.inspiringPresence,
+  enemyBuffs.sentinelsWatch,
+  enemyBuffs.iceShield,
+];
+
 export class Dictionnary {
-  private _dictionary: { [key: number | string]: boolean } = {};
+  private dictionary: { [key: number | string]: boolean } = {};
 
   constructor(list: Array<number | string>) {
     for (const key of list) {
-      this._dictionary[key] = true;
+      this.dictionary[key] = true;
     }
   }
 
   public has(key: number | string): boolean {
-    return this._dictionary[key];
+    return this.dictionary[key];
   }
 }
 
@@ -599,10 +618,3 @@ export const stunCast = new Dictionnary(stunCastData);
 export const stunChanneled = new Dictionnary(stunChanneledData);
 export const stunChanneling = new Dictionnary(stunChannelingData);
 export const bypassThreat = new Dictionnary(bypassThreatData);
-
-export const enemyBuffs = {
-  inspiringPresence: 343502,
-  sentinelsWatch: 215435,
-  iceShield: 372749,
-  iceBulwark: 372988,
-};

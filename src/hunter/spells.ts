@@ -5,48 +5,48 @@ const newSpell = awful.NewSpell;
 export const autoShot = newSpell(75, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const barbedShot = newSpell(217200, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const barrage = newSpell(120360, {
   targeted: false,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const killCommand = newSpell(34026, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const cobraShot = newSpell(193455, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const killShot = newSpell(53351, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const multiShot = newSpell(2643, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const serpentSting = newSpell(271788, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.magic,
+  damage: AwfulSpellType.Magic,
 });
 
 //#endregion Offensives
@@ -56,7 +56,7 @@ export const serpentSting = newSpell(271788, {
 export const aMurderofCrows = newSpell(131894, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const bestialWrath = newSpell(19574, {
@@ -67,13 +67,13 @@ export const bloodshed = newSpell(321530, {
   targeted: true,
   bleed: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const aspectOfTheWild = newSpell(193530, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const callOfTheWild = newSpell(359844, {
@@ -83,38 +83,38 @@ export const callOfTheWild = newSpell(359844, {
 export const explosiveShot = newSpell(212431, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.magic,
+  damage: AwfulSpellType.Magic,
 });
 
 export const steelTrap = newSpell(162488, {
   targeted: false,
   ranged: true,
   radius: 3,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const wailingArrow = newSpell(392060, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.magic,
+  damage: AwfulSpellType.Magic,
 });
 
 export const deathChakram = newSpell(375891, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const direBeast = newSpell(120679, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.magic,
+  damage: AwfulSpellType.Magic,
 });
 
 export const stampede = newSpell(201430, {
   targeted: false,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 //#endregion Cooldowns
@@ -127,7 +127,7 @@ export const muzzle = newSpell(187707, {
 
 export const freezingTrap = newSpell(187650, {
   ranged: true,
-  cc: CCType.stun,
+  cc: CCType.Stun,
   radius: 3,
   targeted: false,
 });
@@ -162,6 +162,7 @@ export const tranquilizingShot = newSpell(19801, {
 
 export const intimidation = newSpell(19577, {
   targeted: true,
+  cc: CCType.Stun,
   ranged: true,
   ignoreFacing: true,
 });
@@ -235,13 +236,13 @@ export const lightsJudgment = awful.NewSpell(255647, {
   targeted: false,
   ranged: true,
   radius: 5,
-  damage: AwfulSpellType.magic,
+  damage: AwfulSpellType.Magic,
 });
 
 export const bagOfTricks = awful.NewSpell(312411, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const berserking = awful.NewSpell(26297, { targeted: false });
