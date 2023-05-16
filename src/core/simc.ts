@@ -43,6 +43,7 @@ export const executeTime = (baseTime: number): number => {
 export const castRegen = (spell: AwfulSpell): number => {
   const regen = regenRate();
 
+  //TODO: check if this is correct
   const spellDescription = GetSpellDescription(spell.id);
   const [generates] = string.gsub(spellDescription, '%D+', '');
   const tooltip = tonumber(string.sub(generates, -2)) || 0;

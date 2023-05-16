@@ -29,7 +29,7 @@ export const misdirectionOptions: AwfulDropdownOptions[] = [
   {
     label: 'Always',
     value: MisdirectionMode.Always,
-    tooltip: 'Always use on cooldown.',
+    tooltip: 'Use on cooldown.',
   },
   {
     label: 'Never',

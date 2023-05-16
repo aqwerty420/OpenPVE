@@ -80,6 +80,7 @@ export const canStunChannel = (enemy: AwfulUnit, delay: number): boolean => {
 };
 
 export const canStunEnemy = (enemy: AwfulUnit, delay?: number): boolean => {
+  // TODO: prevent double kick
   delay = (delay || 0) + awful.buffer;
   return (
     (!globalUI.focus.enabled() || enemy.isUnit(awful.focus)) &&

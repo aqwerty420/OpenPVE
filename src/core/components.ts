@@ -295,13 +295,13 @@ export class Defensive {
 }
 
 export class Delay {
-  private readonly _minDelay: Slider;
-  private readonly _maxDelay: Slider;
-  private readonly _delays: { [min: number]: { [max: number]: AwfulDelay } } =
+  private readonly minDelay: Slider;
+  private readonly maxDelay: Slider;
+  private readonly delays: { [min: number]: { [max: number]: AwfulDelay } } =
     {};
 
   constructor(tab: Tab, params: DelayParams) {
-    this._minDelay = tab.slider({
+    this.minDelay = tab.slider({
       var: `${params.var}Min`,
       text: `${params.text} min delay`,
       tooltip: `Minimum delay to ${params.text}`,
@@ -312,7 +312,7 @@ export class Delay {
       step: 0.1,
     });
 
-    this._maxDelay = tab.slider({
+    this.maxDelay = tab.slider({
       var: `${params.var}Max`,
       text: `${params.text} max delay`,
       tooltip: `Maximum delay to ${params.text}`,
@@ -325,18 +325,18 @@ export class Delay {
   }
 
   public delay(): number {
-    const min = this._minDelay.value();
-    const max = this._maxDelay.value();
+    const min = this.minDelay.value();
+    const max = this.maxDelay.value();
 
-    if (!this._delays[min]) {
-      this._delays[min] = {};
+    if (!this.delays[min]) {
+      this.delays[min] = {};
     }
 
-    if (!this._delays[min][max]) {
-      this._delays[min][max] = awful.delay(min, max);
+    if (!this.delays[min][max]) {
+      this.delays[min][max] = awful.delay(min, max);
     }
 
-    return this._delays[min][max].now;
+    return this.delays[min][max].now;
   }
 }
 
