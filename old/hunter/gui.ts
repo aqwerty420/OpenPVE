@@ -31,7 +31,7 @@ enum MisdirectionModes {
   Never = 'never',
 }
 
-const misdirectionOptions: IAwfulDropdownOptions[] = [
+const misdirectionOptions: AwfulDropdownOptions[] = [
   {
     label: 'Smart',
     value: MisdirectionModes.Smart,
@@ -60,7 +60,7 @@ const misdirectionOptions: IAwfulDropdownOptions[] = [
 ];
 
 class MisdirectionMode extends MyDropdown {
-  constructor(eVar: string, tab: IAwfulTab) {
+  constructor(eVar: string, tab: AwfulTab) {
     const name = spells.misdirection['name'];
 
     super(

@@ -8,7 +8,7 @@ export const isNextBomb = (bomb: Bombs): boolean => {
 };
 
 //TODO: implement & test
-export const isInExplosion = (base: IAwfulUnit, unit: IAwfulUnit): boolean => {
+export const isInExplosion = (base: AwfulUnit, unit: AwfulUnit): boolean => {
   if (base.distanceToLiteral(unit) > 8) return false;
 
   const [baseX, baseY] = base.position();

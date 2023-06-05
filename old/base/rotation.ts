@@ -38,7 +38,7 @@ export const selectNewTarget = (options: IDynamicParameters): void => {
 
   const enemies = myCache.get(options);
 
-  let bestEnemy: IAwfulUnit | undefined;
+  let bestEnemy: AwfulUnit | undefined;
 
   enemies.loop((enemy) => {
     if (!bestEnemy || bestEnemy.health < enemy.health) {
@@ -84,7 +84,7 @@ export const useTrinkets = (
   return false;
 };
 
-export const isEnemyKickImmune = (enemy: IAwfulUnit): boolean => {
+export const isEnemyKickImmune = (enemy: AwfulUnit): boolean => {
   return (
     enemy.buff(EnemyBuffs.sentinelsWatch) != undefined ||
     enemy.buff(EnemyBuffs.iceShield) != undefined ||
@@ -92,18 +92,18 @@ export const isEnemyKickImmune = (enemy: IAwfulUnit): boolean => {
   );
 };
 
-export const canRawKickCast = (enemy: IAwfulUnit, spellId: number): boolean => {
+export const canRawKickCast = (enemy: AwfulUnit, spellId: number): boolean => {
   return enemy.castID === spellId && enemy.castRemains >= awful.buffer;
 };
 
 export const canRawKickChannel = (
-  enemy: IAwfulUnit,
+  enemy: AwfulUnit,
   spellId: number
 ): boolean => {
   return enemy.channelID === spellId && enemy.channelRemains >= awful.buffer;
 };
 
-export const canKickCast = (enemy: IAwfulUnit): boolean => {
+export const canKickCast = (enemy: AwfulUnit): boolean => {
   return (
     enemy.casting != undefined &&
     enemy.castRemains >= awful.buffer &&
@@ -115,7 +115,7 @@ export const canKickCast = (enemy: IAwfulUnit): boolean => {
   );
 };
 
-export const canKickChannel = (enemy: IAwfulUnit): boolean => {
+export const canKickChannel = (enemy: AwfulUnit): boolean => {
   const [, , , , , , notInterruptible] = UnitChannelInfo(enemy.pointer);
 
   return (
@@ -127,7 +127,7 @@ export const canKickChannel = (enemy: IAwfulUnit): boolean => {
   );
 };
 
-export const canKickEnemy = (enemy: IAwfulUnit): boolean => {
+export const canKickEnemy = (enemy: AwfulUnit): boolean => {
   return (
     (!generalGui.focus.enabled() || enemy.isUnit(awful.focus)) &&
     !isEnemyKickImmune(enemy) &&
@@ -136,7 +136,7 @@ export const canKickEnemy = (enemy: IAwfulUnit): boolean => {
   );
 };
 
-export const isEnemyStunImmune = (enemy: IAwfulUnit): boolean => {
+export const isEnemyStunImmune = (enemy: AwfulUnit): boolean => {
   return (
     unitStunBlacklis.has(enemy.id) ||
     enemy.buff(EnemyBuffs.inspiringPresence) != undefined ||
@@ -145,7 +145,7 @@ export const isEnemyStunImmune = (enemy: IAwfulUnit): boolean => {
   );
 };
 
-export const canStunCast = (enemy: IAwfulUnit, delay: number): boolean => {
+export const canStunCast = (enemy: AwfulUnit, delay: number): boolean => {
   return (
     enemy.casting != undefined &&
     enemy.castRemains >= delay &&
@@ -158,7 +158,7 @@ export const canStunCast = (enemy: IAwfulUnit, delay: number): boolean => {
   );
 };
 
-export const canStunChannel = (enemy: IAwfulUnit, delay: number): boolean => {
+export const canStunChannel = (enemy: AwfulUnit, delay: number): boolean => {
   const [, , , , , , notInterruptible] = UnitChannelInfo(enemy.pointer);
 
   return (
@@ -173,7 +173,7 @@ export const canStunChannel = (enemy: IAwfulUnit, delay: number): boolean => {
   );
 };
 
-export const canStunEnemy = (enemy: IAwfulUnit, delay?: number): boolean => {
+export const canStunEnemy = (enemy: AwfulUnit, delay?: number): boolean => {
   delay = (delay || 0) + awful.buffer;
   return (
     (!generalGui.focus.enabled() || enemy.isUnit(awful.focus)) &&
@@ -183,10 +183,7 @@ export const canStunEnemy = (enemy: IAwfulUnit, delay?: number): boolean => {
   );
 };
 
-const drawPlayerFeetDot = (
-  draw: IAwfulDrawer,
-  classGui: ModulableGui
-): void => {
+const drawPlayerFeetDot = (draw: AwfulDrawer, classGui: ModulableGui): void => {
   if (!classGui.playerFeetDot.enabled()) return;
 
   const player = awful.player;
@@ -205,7 +202,7 @@ const drawPlayerFeetDot = (
 };
 
 const drawAttackRange = (
-  draw: IAwfulDrawer,
+  draw: AwfulDrawer,
   classGui: ModulableGui,
   range: number,
   melee: boolean
@@ -247,7 +244,7 @@ const drawAttackRange = (
     draw.FilledCircle(px, py, pz, range);
 };
 
-const drawTargetCircle = (draw: IAwfulDrawer, classGui: ModulableGui): void => {
+const drawTargetCircle = (draw: AwfulDrawer, classGui: ModulableGui): void => {
   if (!classGui.drawTargetAttackRange.enabled()) return;
 
   const target = awful.target;
@@ -277,7 +274,7 @@ const drawTargetCircle = (draw: IAwfulDrawer, classGui: ModulableGui): void => {
     draw.FilledCircle(tx, ty, tz, targetRange);
 };
 
-const drawTargetLine = (draw: IAwfulDrawer, classGui: ModulableGui): void => {
+const drawTargetLine = (draw: AwfulDrawer, classGui: ModulableGui): void => {
   if (!classGui.drawTargetLine.enabled()) return;
 
   const player = awful.player;
@@ -323,7 +320,7 @@ const isTargetMyPet = (): boolean => {
 };
 
 export const globalDraws = (
-  draw: IAwfulDrawer,
+  draw: AwfulDrawer,
   classGui: ModulableGui,
   range: number,
   melee = false
@@ -401,7 +398,7 @@ export const playerHasAggro = (): boolean => {
 };
 
 export const canDispell = (
-  ally: IAwfulUnit,
+  ally: AwfulUnit,
   listDispelType?: Array<DispelType>
 ): boolean => {
   for (const [, , , type, , , , isStealable] of ally.debuffs)
@@ -421,7 +418,7 @@ export interface CanDispelParams {
 }
 
 export const canDispelBuff = (
-  unit: IAwfulUnit,
+  unit: AwfulUnit,
   params?: CanDispelParams
 ): boolean => {
   for (const [, , , type, , expirationTime, , isStealable] of unit.buffs) {

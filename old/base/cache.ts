@@ -11,7 +11,7 @@ class MyCache {
     this.cache = {};
   }
 
-  public static groupTagged(unit: IAwfulUnit): boolean {
+  public static groupTagged(unit: AwfulUnit): boolean {
     if (bypassThreat.has(unit.id)) return true;
 
     for (const ally of awful.fGroup) {
@@ -22,11 +22,11 @@ class MyCache {
     return false;
   }
 
-  public static isImmune(unit: IAwfulUnit): boolean {
+  public static isImmune(unit: AwfulUnit): boolean {
     return unit.buff(374779) != undefined || unit.buff(384132) != undefined;
   }
 
-  public dynamicFilter(options: IDynamicParameters, unit: IAwfulUnit): boolean {
+  public dynamicFilter(options: IDynamicParameters, unit: AwfulUnit): boolean {
     if (!awful.player.canAttack(unit)) return false;
 
     if (unit.health <= 2) return false;
@@ -118,7 +118,7 @@ class MyCache {
     return index;
   }
 
-  public get(options: IDynamicParameters): IAwfulList<IAwfulUnit> {
+  public get(options: IDynamicParameters): AwfulList<AwfulUnit> {
     const index = this.getIndex(options);
     if (this.cache[index] != null) return this.cache[index];
 
@@ -130,7 +130,7 @@ class MyCache {
     return enemies;
   }
 
-  public getExplosives(options: IDynamicParameters): IAwfulList<IAwfulUnit> {
+  public getExplosives(options: IDynamicParameters): AwfulList<AwfulUnit> {
     const enemies = awful.explosives.filter((unit) =>
       this.dynamicFilter(options, unit)
     );

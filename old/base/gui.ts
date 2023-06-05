@@ -32,7 +32,7 @@ export const awfulStatusFrame = awfulGui.StatusFrame({
 });
 
 export class MyText {
-  constructor(tab: IAwfulTab, label: string, header = false) {
+  constructor(tab: AwfulTab, label: string, header = false) {
     tab.Text({
       text: label,
       header: header,
@@ -45,7 +45,7 @@ export class MyCheckBox {
 
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     tooltip?: string,
     defaultValue = true
@@ -72,8 +72,8 @@ export class MyCheckBox {
 export class MyCheckBoxBySpell extends MyCheckBox {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
-    spell: IAwfulSpell,
+    tab: AwfulTab,
+    spell: AwfulSpell,
     tooltip?: string,
     defaultValue?: boolean
   ) {
@@ -92,7 +92,7 @@ const interruptsVar = 'interrupts';
 export class MyInterrupt extends MyCheckBox {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     tooltip?: string,
     defaultValue?: boolean
@@ -112,7 +112,7 @@ export class MyInterrupt extends MyCheckBox {
 }
 
 export class MyInterruptBySpell extends MyInterrupt {
-  constructor(eVar: string, tab: IAwfulTab, spell: IAwfulSpell) {
+  constructor(eVar: string, tab: AwfulTab, spell: AwfulSpell) {
     const name = spell['name'];
 
     super(
@@ -129,7 +129,7 @@ export class MySlider {
 
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     optionals?: {
       tooltip?: string;
@@ -164,9 +164,9 @@ export class MyDropdown {
 
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
-    options: IAwfulDropdownOptions[],
+    options: AwfulDropdownOptions[],
     optionals?: {
       tooltip?: string;
       placeholder?: string;
@@ -197,7 +197,7 @@ export enum CooldownsOptions {
   Never = 'never',
 }
 
-export const cdOptions: IAwfulDropdownOptions[] = [
+export const cdOptions: AwfulDropdownOptions[] = [
   {
     label: 'Always',
     value: CooldownsOptions.Always,
@@ -228,7 +228,7 @@ const minTTDValueVar = 'minTTDValue';
 export class MyBaseCooldowns extends MyDropdown {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     tooltip: string,
     defaultValue = cdOptions[1].value
@@ -258,7 +258,7 @@ export class MyBaseCooldowns extends MyDropdown {
 export class MyCooldowns extends MyBaseCooldowns {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     defaultValue?: number | string
   ) {
@@ -269,8 +269,8 @@ export class MyCooldowns extends MyBaseCooldowns {
 export class MyCooldownsBySpell extends MyBaseCooldowns {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
-    spell: IAwfulSpell,
+    tab: AwfulTab,
+    spell: AwfulSpell,
     defaultValue?: number | string
   ) {
     const name = spell['name'];
@@ -291,7 +291,7 @@ abstract class MyDropdownCheckbox {
 
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label1: string,
     tooltip1: string,
     label2: string,
@@ -316,7 +316,7 @@ const defensivesToggleVar = 'defensivesToggle';
 export class MyBaseDefensive extends MyDropdownCheckbox {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     name: string,
     defaultValue?: number
@@ -345,7 +345,7 @@ export class MyBaseDefensive extends MyDropdownCheckbox {
 export class MyDefensive extends MyBaseDefensive {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     defaultValue?: number
   ) {
@@ -356,8 +356,8 @@ export class MyDefensive extends MyBaseDefensive {
 export class MyDefensiveBySpell extends MyBaseDefensive {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
-    spell: IAwfulSpell,
+    tab: AwfulTab,
+    spell: AwfulSpell,
     defaultValue?: number
   ) {
     const name = spell['name'];
@@ -375,8 +375,8 @@ export class MyDefensiveBySpell extends MyBaseDefensive {
 export class MyDefensiveByItem extends MyBaseDefensive {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
-    item: IAwfulItem,
+    tab: AwfulTab,
+    item: AwfulItem,
     secureName: string,
     defaultValue?: number
   ) {
@@ -397,7 +397,7 @@ export class MyDefensiveByItem extends MyBaseDefensive {
 export class MyPetDefensive extends MyDefensive {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     defaultValue?: number
   ) {
@@ -568,7 +568,7 @@ const colorOptions = [
 export class MyRgbSelector extends MyDropdown {
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     optionals?: { tooltip?: string; defaultValue?: string }
   ) {
@@ -595,7 +595,7 @@ export class MyColorPicker {
 
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     optionals?: {
       defaultColor?: string;
@@ -631,7 +631,7 @@ export class Opacity {
 
   constructor(
     eVar: string,
-    tab: IAwfulTab,
+    tab: AwfulTab,
     label: string,
     optionals?: {
       defaultAlpha?: number;
@@ -827,10 +827,10 @@ export class MyTrigger {
 export class MyDelay {
   private readonly minDelay: MySlider;
   private readonly maxDelay: MySlider;
-  private readonly delays: { [min: number]: { [max: number]: IAwfulDelay } } =
+  private readonly delays: { [min: number]: { [max: number]: AwfulDelay } } =
     {};
 
-  constructor(eVar: string, tab: IAwfulTab, label: string) {
+  constructor(eVar: string, tab: AwfulTab, label: string) {
     this.minDelay = new MySlider(`${eVar}Min`, tab, `${label} min delay`, {
       tooltip: `Minimum delay to ${label}`,
       min: 0,
@@ -887,17 +887,17 @@ export class ModulableGui {
 
   // Groups - Cooldowns
 
-  public readonly cooldownsClassTab: IAwfulTab;
+  public readonly cooldownsClassTab: AwfulTab;
 
   // Groups - Mechanics
 
-  public readonly mechanicsClassTab: IAwfulTab;
+  public readonly mechanicsClassTab: AwfulTab;
 
   // Groups - Draw
 
-  public readonly drawAttackRangeTab: IAwfulTab;
+  public readonly drawAttackRangeTab: AwfulTab;
 
-  public readonly drawTargetTab: IAwfulTab;
+  public readonly drawTargetTab: AwfulTab;
 
   // Elements - Cooldowns - Class
 

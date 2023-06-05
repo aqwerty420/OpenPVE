@@ -79,8 +79,16 @@ export class Tab {
     return new Cooldown(this.tab, params);
   }
 
-  public defensive(params: DefensivesParams): Defensive {
-    return new Defensive(this, params);
+  public defensive(params: DefensivesParams, unit: () => AwfulUnit): Defensive {
+    return new Defensive(this, params, unit);
+  }
+
+  public playerDefensive(params: DefensivesParams): PlayerDefensive {
+    return new PlayerDefensive(this, params);
+  }
+
+  public petDefensive(params: DefensivesParams): PetDefensive {
+    return new PetDefensive(this, params);
   }
 
   public interrupt(params: InterruptParams): Interrupt {
@@ -139,12 +147,12 @@ export const cooldownOptions: AwfulDropdownOptions[] = [
     tooltip: 'Always use.',
   },
   {
-    label: 'On Toggle',
+    label: 'Toggle',
     value: CooldownMode.Toggle,
     tooltip: 'Use on cooldowns &/or mini cooldowns toggle.',
   },
   {
-    label: 'On Mini Toggle',
+    label: 'Mini Toggle',
     value: CooldownMode.MiniToggle,
     tooltip: 'Use on mini cooldowns toggle.',
   },
@@ -165,11 +173,12 @@ export interface CooldownParams {
   tooltip?: string;
   usable?: AwfulSpell | AwfulItem;
   default?: CooldownMode;
+  traits?: CooldownTraits;
 }
 
 export interface DefensivesParams {
   var: string;
-  minHp: number;
+  minHP: number;
   enabled?: boolean;
   usable?: AwfulSpell | AwfulItem;
   checkboxText?: string;
@@ -192,6 +201,14 @@ export interface InterruptParams {
 }
 
 // #endregion Params
+
+// #region Traits
+
+export interface CooldownTraits {
+  ignoreTTD?: boolean;
+}
+
+// #endregion Traits
 
 // #region Widgets - GUI
 
@@ -261,10 +278,11 @@ export class Separator {
 }
 
 export class Defensive {
+  protected readonly unit: () => AwfulUnit;
   public readonly checkbox: Checkbox;
   public readonly slider: Slider;
 
-  constructor(tab: Tab, params: DefensivesParams) {
+  constructor(tab: Tab, params: DefensivesParams, unit: () => AwfulUnit) {
     this.checkbox = tab.checkbox({
       var: `${params.var}State`,
       text: params.usable
@@ -282,15 +300,29 @@ export class Defensive {
       tooltip: params.usable
         ? `Minimum health to use ${params.usable.name} as a defensive.`
         : params.sliderTooltip,
-      default: params.minHp,
+      default: params.minHP,
       min: 0,
       max: 100,
       step: 1,
     });
+
+    this.unit = unit;
   }
 
   public usable(): boolean {
-    return this.checkbox.enabled() && awful.player.hp <= this.slider.value();
+    return this.checkbox.enabled() && this.unit().hp <= this.slider.value();
+  }
+}
+
+export class PlayerDefensive extends Defensive {
+  constructor(tab: Tab, params: DefensivesParams) {
+    super(tab, params, () => awful.player);
+  }
+}
+
+export class PetDefensive extends Defensive {
+  constructor(tab: Tab, params: DefensivesParams) {
+    super(tab, params, () => awful.pet);
   }
 }
 
@@ -341,6 +373,8 @@ export class Delay {
 }
 
 export class Cooldown extends Dropdown<CooldownMode> {
+  private readonly traits: CooldownTraits;
+
   constructor(tab: AwfulTab, params: CooldownParams) {
     super(tab, {
       var: params.var,
@@ -353,10 +387,17 @@ export class Cooldown extends Dropdown<CooldownMode> {
         : params.tooltip,
       default: params.default ?? CooldownMode.Toggle,
     });
+
+    this.traits = params.traits ?? {};
   }
 
-  public usable(ignoreTTD = false): boolean {
+  public usable(traits?: CooldownTraits): boolean {
     const value = this.value();
+
+    const ignoreTTD =
+      traits?.ignoreTTD !== undefined
+        ? traits.ignoreTTD
+        : this.traits.ignoreTTD;
 
     return (
       (ignoreTTD ||

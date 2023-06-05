@@ -8,7 +8,7 @@ class InterruptsHistory {
     };
   } = {};
 
-  public recentlyHandled(unit: IAwfulUnit): boolean {
+  public recentlyHandled(unit: AwfulUnit): boolean {
     const guid = unit.id;
     const unitHistory = this.history[guid];
 
@@ -20,7 +20,7 @@ class InterruptsHistory {
     return elapsedTime > 0.2 && elapsedTime < delay;
   }
 
-  public set(unit: IAwfulUnit, delay = 2.5): void {
+  public set(unit: AwfulUnit, delay = 2.5): void {
     const guid = unit.id;
 
     this.history[guid] = {
@@ -32,19 +32,19 @@ class InterruptsHistory {
 
 export const interruptsHistory = new InterruptsHistory();
 
-type MechanicCallback = (unit: IAwfulUnit) => boolean;
+type MechanicCallback = (unit: AwfulUnit) => boolean;
 
 class Mechanic {
-  private readonly spells: IAwfulSpell[];
+  private readonly spells: AwfulSpell[];
   private readonly check: MechanicCallback;
   private lastHandle = 0;
 
-  constructor(spells: IAwfulSpell[], check: MechanicCallback) {
+  constructor(spells: AwfulSpell[], check: MechanicCallback) {
     this.spells = spells;
     this.check = check;
   }
 
-  public handle(unit?: IAwfulUnit): void {
+  public handle(unit?: AwfulUnit): void {
     if (unit === undefined) unit = awful.player;
 
     const elapsedTime = awful.time - this.lastHandle;
@@ -88,7 +88,7 @@ class MechanicsHandler {
 
   public add(
     check: MechanicCallback,
-    spells: IAwfulSpell[],
+    spells: AwfulSpell[],
     unitId: number | undefined = undefined
   ): void {
     if (!unitId) {

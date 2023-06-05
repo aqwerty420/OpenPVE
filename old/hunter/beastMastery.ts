@@ -275,7 +275,7 @@ const bm = (): void => {
 
 ponche.hunter.beastMastery = awful.Actor.New({
   spec: AwfulSpecs.First,
-  class: AwfulClasses.hunter,
+  class: AwfulClasses.Hunter,
 });
 
 ponche.hunter.beastMastery.Init(() => {

@@ -1,4 +1,4 @@
-export const fullRechargeTime = (spell: IAwfulSpell): number => {
+export const fullRechargeTime = (spell: AwfulSpell): number => {
   const [currentCharges, maxCharges, cooldownStart, cooldownDuration] =
     GetSpellCharges(spell.id);
 
@@ -40,7 +40,7 @@ export const executeTime = (baseTime: number): number => {
 };
 
 export const isRefreshable = (
-  unit: IAwfulUnit,
+  unit: AwfulUnit,
   debuffId: number,
   duration: number
 ): boolean => {
@@ -48,7 +48,7 @@ export const isRefreshable = (
   return remains <= (duration - remains) * 0.3;
 };
 
-export const castRegen = (spell: IAwfulSpell, tooltip?: number): number => {
+export const castRegen = (spell: AwfulSpell, tooltip?: number): number => {
   const regen = regenRate();
   let castTime = spell.castTime;
 
@@ -58,7 +58,7 @@ export const castRegen = (spell: IAwfulSpell, tooltip?: number): number => {
 };
 
 export const isRefreshableBuff = (
-  unit: IAwfulUnit,
+  unit: AwfulUnit,
   buffId: number,
   duration: number
 ): boolean => {

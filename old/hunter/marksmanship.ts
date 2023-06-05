@@ -276,7 +276,7 @@ const mm = (): void => {
 
 ponche.hunter.marksmanship = awful.Actor.New({
   spec: AwfulSpecs.Second,
-  class: AwfulClasses.hunter,
+  class: AwfulClasses.Hunter,
 });
 
 ponche.hunter.marksmanship.Init(() => {

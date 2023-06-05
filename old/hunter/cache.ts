@@ -11,14 +11,14 @@ import {
 
 class HunterCache {
   protected cache!: {
-    lowestBarbedShot?: IAwfulUnit;
+    lowestBarbedShot?: AwfulUnit;
     wildfireBombTicking?: boolean;
     butcheryInternalBleedingStacks?: boolean;
     carveShrapnelTicking?: boolean;
-    maxLatentPoisonStacksMelee?: IAwfulUnit;
-    minBloodseekerRemains?: IAwfulUnit;
-    minSerpentStingRemainsMelee?: IAwfulUnit;
-    minSerpentStingByTTD?: { [key: string]: IAwfulUnit };
+    maxLatentPoisonStacksMelee?: AwfulUnit;
+    minBloodseekerRemains?: AwfulUnit;
+    minSerpentStingRemainsMelee?: AwfulUnit;
+    minSerpentStingByTTD?: { [key: string]: AwfulUnit };
   };
 
   constructor() {
@@ -96,7 +96,7 @@ class HunterCache {
     return false;
   }
 
-  public maxLatentPoisonStacksMelee(): IAwfulUnit {
+  public maxLatentPoisonStacksMelee(): AwfulUnit {
     const player = awful.player;
 
     if (this.cache.maxLatentPoisonStacksMelee != undefined)
@@ -107,7 +107,7 @@ class HunterCache {
       : myCache.get(meleeFightableLosFacing);
 
     let maxStacks = 0;
-    let maxStacksUnit: IAwfulUnit = awful.target;
+    let maxStacksUnit: AwfulUnit = awful.target;
 
     for (const enemy of enemies) {
       const stacks = enemy.debuffStacks(HunterDebuffs.latentPoison, player);
@@ -121,7 +121,7 @@ class HunterCache {
     return maxStacksUnit;
   }
 
-  public minBloodseekerRemains(): IAwfulUnit {
+  public minBloodseekerRemains(): AwfulUnit {
     const target = awful.target;
     const pet = awful.pet;
 
@@ -131,7 +131,7 @@ class HunterCache {
     const enemies = myCache.get(modeParams);
 
     let minRemains = 100;
-    let minRemainsUnit: IAwfulUnit = target;
+    let minRemainsUnit: AwfulUnit = target;
 
     for (const enemy of enemies) {
       const remains = enemy.debuffRemains(HunterDebuffs.bloodseeker, pet);
@@ -145,7 +145,7 @@ class HunterCache {
     return minRemainsUnit;
   }
 
-  public lowestbarbedShot(): IAwfulUnit {
+  public lowestbarbedShot(): AwfulUnit {
     const player = awful.player;
 
     if (this.cache.lowestBarbedShot != undefined)
@@ -174,7 +174,7 @@ class HunterCache {
     return best;
   }
 
-  public minSerpentStingRemainsMelee(): IAwfulUnit {
+  public minSerpentStingRemainsMelee(): AwfulUnit {
     const player = awful.player;
 
     if (this.cache.minSerpentStingRemainsMelee != undefined)
@@ -185,7 +185,7 @@ class HunterCache {
       : myCache.get(meleeFightableLosFacing);
 
     let minRemains = 100;
-    let minRemainsUnit: IAwfulUnit = awful.target;
+    let minRemainsUnit: AwfulUnit = awful.target;
 
     if (!minRemainsUnit.debuffRemains(HunterDebuffs.serpentSting, player)) {
       this.cache.minSerpentStingRemainsMelee = minRemainsUnit;
@@ -208,7 +208,7 @@ class HunterCache {
     return minRemainsUnit;
   }
 
-  public minSerpentStingRemains(minTTD = 7): IAwfulUnit {
+  public minSerpentStingRemains(minTTD = 7): AwfulUnit {
     const player = awful.player;
 
     if (
@@ -220,7 +220,7 @@ class HunterCache {
     const enemies = myCache.get(fourthyFightableLosFacing);
 
     let minRemains = 100;
-    let minRemainsUnit: IAwfulUnit = awful.target;
+    let minRemainsUnit: AwfulUnit = awful.target;
 
     if (
       !minRemainsUnit.debuffRemains(HunterDebuffs.serpentSting, player) &&

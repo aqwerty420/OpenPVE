@@ -5,7 +5,7 @@ enum BigWigsBars {
 }
 
 class BigWigsTimeLine {
-  private bars: { [key: string]: IBigWigsAnchorBar } = {};
+  private bars: { [key: string]: BigWigsAnchorBar } = {};
 
   constructor() {
     awful.addUpdateCallback(() => {

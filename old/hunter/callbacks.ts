@@ -49,7 +49,7 @@ const svKillCommandRegen = () => {
   );
 };
 
-const canCarefulAim = (target: IAwfulUnit, extraDelay = 0): boolean => {
+const canCarefulAim = (target: AwfulUnit, extraDelay = 0): boolean => {
   return (
     awful.player.hasTalent(HunterTalents.carefulAim) != false &&
     spells.aimedShot.castTime + awful.buffer + 0.5 + extraDelay <
@@ -78,7 +78,7 @@ spells.barbedShot.Callback((spell) => {
   spell.Cast(target);
 });
 
-const barbedShotLowestCallback = (spell: IAwfulSpell): boolean => {
+const barbedShotLowestCallback = (spell: AwfulSpell): boolean => {
   const target = hunterCache.lowestbarbedShot();
   return spell.Cast(target);
 };
@@ -190,7 +190,7 @@ spells.barbedShot.Callback('bm.barbedShot.cleave.2', (spell) => {
     barbedShotLowestCallback(spell);
 });
 
-const killCommandCallback = (spell: IAwfulSpell) => {
+const killCommandCallback = (spell: AwfulSpell) => {
   const pet = awful.pet;
   const target = awful.target;
 
@@ -247,7 +247,7 @@ spells.cobraShot.Callback('bm.cobraShot.cleave.1', (spell) => {
 });
 
 spells.cobraShot.Callback('mechanic', (spell, unit) => {
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (target.los && target.playerFacing && target.distance < 40) {
     spell.Cast(target);
@@ -276,7 +276,7 @@ export const fixKillShotCallback = () => {
   }
 };
 
-const aoeCallbackKillShot = (spell: IAwfulSpell) => {
+const aoeCallbackKillShot = (spell: AwfulSpell) => {
   const player = awful.player;
   const enemies = myCache.get(fourthyFightableLosFacing);
   const ignoreHp =
@@ -343,7 +343,7 @@ spells.killShotSV.Callback('sv.killShot.st.2', (spell) => {
   }
 });
 
-const multiShotCallback = (spell: IAwfulSpell) => {
+const multiShotCallback = (spell: AwfulSpell) => {
   const target = awful.target;
 
   spell.Cast(target);
@@ -363,7 +363,7 @@ spells.multiShotBM.Callback('bm.multishot.cleave.1', (spell) => {
   }
 });
 
-const steadyShotCallback = (spell: IAwfulSpell) => {
+const steadyShotCallback = (spell: AwfulSpell) => {
   const target = awful.target;
 
   spell.Cast(target);
@@ -496,16 +496,16 @@ spells.arcaneShot.Callback('mm.arcaneShot.st.1', (spell) => {
 });
 
 spells.arcaneShot.Callback('mechanic', (spell, unit) => {
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (target.los && target.playerFacing && target.distance < 40) {
     spell.Cast(target);
   }
 });
 
-let lastStingTarget: IAwfulUnit | undefined = undefined;
+let lastStingTarget: AwfulUnit | undefined = undefined;
 
-const getAimedShotOptions = (): IAwfulSpellOptions => {
+const getAimedShotOptions = (): AwfulSpellOptions => {
   return {
     ignoreMoving: awful.player.buff(HunterBuffs.lockAndLoad) != undefined,
   };
@@ -531,7 +531,7 @@ spells.aimedShot.Callback('mm.aimedShot.st.1', (spell) => {
   const target = statusFrame.rotationMode.isST()
     ? awful.target
     : lowestSerpentSting(
-        myCache.get(fourthyFightableLosFacing) as unknown as IAwfulUnit[]
+        myCache.get(fourthyFightableLosFacing) as unknown as AwfulUnit[]
       ) || awful.target;
 
   if (
@@ -550,9 +550,9 @@ spells.aimedShot.Callback('mm.aimedShot.st.1', (spell) => {
   }
 });
 
-const maxLatentPoisonStack = (units: IAwfulUnit[]) => {
+const maxLatentPoisonStack = (units: AwfulUnit[]) => {
   let maxStack = 0;
-  let maxStackUnit: IAwfulUnit | undefined;
+  let maxStackUnit: AwfulUnit | undefined;
   let maxHealth = 0;
 
   for (const unit of units) {
@@ -583,7 +583,7 @@ spells.aimedShot.Callback('mm.aimedShot.st.2', (spell) => {
   const target = statusFrame.rotationMode.isST()
     ? awful.target
     : maxLatentPoisonStack(
-        myCache.get(fourthyFightableLosFacing) as unknown as IAwfulUnit[]
+        myCache.get(fourthyFightableLosFacing) as unknown as AwfulUnit[]
       ) || awful.target;
 
   if (
@@ -616,7 +616,7 @@ spells.aimedShot.Callback('mm.aimedShot.trickshots.1', (spell) => {
   ) {
     const target =
       lowestSerpentSting(
-        myCache.get(fourthyFightableLosFacing) as unknown as IAwfulUnit[]
+        myCache.get(fourthyFightableLosFacing) as unknown as AwfulUnit[]
       ) || awful.target;
 
     if (spell.Cast(target, getAimedShotOptions())) lastStingTarget = target;
@@ -637,7 +637,7 @@ spells.aimedShot.Callback('mm.aimedShot.trickshots.2', (spell) => {
   ) {
     const target =
       maxLatentPoisonStack(
-        myCache.get(fourthyFightableLosFacing) as unknown as IAwfulUnit[]
+        myCache.get(fourthyFightableLosFacing) as unknown as AwfulUnit[]
       ) || awful.target;
 
     spell.Cast(target, getAimedShotOptions());
@@ -696,13 +696,13 @@ const wasLastCastSting = () => {
   );
 };
 
-export const isLastStingTarget = (unit: IAwfulUnit) => {
+export const isLastStingTarget = (unit: AwfulUnit) => {
   return lastStingTarget != undefined && lastStingTarget.isUnit(unit);
 };
 
-const lowestSerpentSting = (units: IAwfulUnit[]): IAwfulUnit | undefined => {
+const lowestSerpentSting = (units: AwfulUnit[]): AwfulUnit | undefined => {
   const player = awful.player;
-  let lowestSerpentStingTarget: IAwfulUnit | undefined;
+  let lowestSerpentStingTarget: AwfulUnit | undefined;
   const lasCastSting = wasLastCastSting();
 
   for (const unit of units) {
@@ -730,7 +730,7 @@ const lowestSerpentSting = (units: IAwfulUnit[]): IAwfulUnit | undefined => {
   if (lowestSerpentStingTarget) return lowestSerpentStingTarget;
 
   // Get unit with the most .health
-  let highestHealthTarget: IAwfulUnit | undefined;
+  let highestHealthTarget: AwfulUnit | undefined;
 
   for (const unit of units) {
     if (!highestHealthTarget || unit.health > highestHealthTarget.health) {
@@ -755,7 +755,7 @@ spells.serpentSting.Callback('mm.serpentSting.st.1', (spell) => {
   const target = statusFrame.rotationMode.isST()
     ? awful.target
     : lowestSerpentSting(
-        myCache.get(fourthyFightableLosFacing) as unknown as IAwfulUnit[]
+        myCache.get(fourthyFightableLosFacing) as unknown as AwfulUnit[]
       );
 
   if (
@@ -786,7 +786,7 @@ spells.serpentSting.Callback('mm.serpentSting.trickshots.1', (spell) => {
   if (serpentStingCount > maxSerpentSting.value()) return;
 
   const target = lowestSerpentSting(
-    myCache.get(fourthyFightableLosFacing) as unknown as IAwfulUnit[]
+    myCache.get(fourthyFightableLosFacing) as unknown as AwfulUnit[]
   );
 
   if (
@@ -817,7 +817,7 @@ spells.serpentSting.Callback('mm.serpentSting.trickshots.2', (spell) => {
   if (serpentStingCount > maxSerpentSting.value()) return;
 
   const target = lowestSerpentSting(
-    myCache.get(fourthyFightableLosFacing) as unknown as IAwfulUnit[]
+    myCache.get(fourthyFightableLosFacing) as unknown as AwfulUnit[]
   );
 
   if (
@@ -937,7 +937,7 @@ spells.wildfireBomb.Callback('sv.wildfireBomb.st.4', (spell) => {
   }
 });
 
-const carveCallback = (spell: IAwfulSpell) => {
+const carveCallback = (spell: AwfulSpell) => {
   const enemiesCount = myCache.get(eightFightableFacing).length;
 
   if (enemiesCount > 0) {
@@ -986,7 +986,7 @@ spells.butchery.Callback('sv.butchery.cleave.3', (spell) => {
   }
 });
 
-const flakingStrikeRegenCallback = (spell: IAwfulSpell) => {
+const flakingStrikeRegenCallback = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = awful.target;
 
@@ -1005,7 +1005,7 @@ spells.flankingStrike.Callback(
   flakingStrikeRegenCallback
 );
 
-const mongooseBiteCallbackCleave1 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackCleave1 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = hunterCache.maxLatentPoisonStacksMelee();
 
@@ -1024,7 +1024,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackCleave1
 );
 
-const mongooseBiteCallbackCleave2 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackCleave2 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = player.hasTalent(HunterTalents.vipersVenom)
     ? hunterCache.minSerpentStingRemainsMelee()
@@ -1043,7 +1043,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackCleave2
 );
 
-const mongooseBiteCallbackSt1 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackSt1 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = awful.target;
 
@@ -1059,7 +1059,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackSt1
 );
 
-const mongooseBiteCallbackSt2 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackSt2 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = awful.target;
   const enemiesCount = myCache.get(eightFightable).length;
@@ -1083,7 +1083,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackSt2
 );
 
-const mongooseBiteCallbackSt3 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackSt3 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = awful.target;
 
@@ -1104,7 +1104,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackSt3
 );
 
-const mongooseBiteCallbackSt4 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackSt4 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = awful.target;
 
@@ -1120,7 +1120,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackSt4
 );
 
-const mongooseBiteCallbackSt5 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackSt5 = (spell: AwfulSpell) => {
   const player = awful.player;
 
   if (player.buff(HunterBuffs.mongooseFury)) {
@@ -1138,7 +1138,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackSt5
 );
 
-const mongooseBiteCallbackSt6 = (spell: IAwfulSpell) => {
+const mongooseBiteCallbackSt6 = (spell: AwfulSpell) => {
   const player = awful.player;
 
   if (player.focus + svKillCommandRegen() > player.focusMax - 10) {
@@ -1156,7 +1156,7 @@ spells.mongooseBiteRanged.Callback(
   mongooseBiteCallbackSt6
 );
 
-const raptorStrikeCallbackCleave1 = (spell: IAwfulSpell) => {
+const raptorStrikeCallbackCleave1 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = hunterCache.maxLatentPoisonStacksMelee();
 
@@ -1175,7 +1175,7 @@ spells.raptorStrikeRanged.Callback(
   raptorStrikeCallbackCleave1
 );
 
-const raptorStrikeCallbackCleave2 = (spell: IAwfulSpell) => {
+const raptorStrikeCallbackCleave2 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = player.hasTalent(HunterTalents.vipersVenom)
     ? hunterCache.minSerpentStingRemainsMelee()
@@ -1194,7 +1194,7 @@ spells.raptorStrikeRanged.Callback(
   raptorStrikeCallbackCleave2
 );
 
-const raptorStrikeCallbackSt1 = (spell: IAwfulSpell) => {
+const raptorStrikeCallbackSt1 = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = awful.target;
   const enemiesCount = myCache.get(eightFightable).length;
@@ -1215,7 +1215,7 @@ spells.raptorStrikeRanged.Callback(
   raptorStrikeCallbackSt1
 );
 
-const raptorStrikeCallbackSt2 = (spell: IAwfulSpell) => {
+const raptorStrikeCallbackSt2 = (spell: AwfulSpell) => {
   const target = statusFrame.rotationMode.isST()
     ? awful.target
     : hunterCache.maxLatentPoisonStacksMelee();
@@ -1303,7 +1303,7 @@ spells.salvo.Callback((spell) => {
   spell.Cast();
 });
 
-const salvoPreVolleyCallback = (spell: IAwfulSpell) => {
+const salvoPreVolleyCallback = (spell: AwfulSpell) => {
   if (
     !hunterGui.salvo.enabled() ||
     !hunterGui.volley.enabled() ||
@@ -1347,7 +1347,7 @@ spells.callOfTheWild.Callback((spell) => {
   }
 });
 
-const explosiveShotCallback = (spell: IAwfulSpell) => {
+const explosiveShotCallback = (spell: AwfulSpell) => {
   const target = awful.target;
 
   if (hunterGui.explosiveShot.enabled()) {
@@ -1373,7 +1373,7 @@ spells.steelTrap.Callback((spell) => {
   }
 });
 
-const steelTrapNoTrueshot = (spell: IAwfulSpell) => {
+const steelTrapNoTrueshot = (spell: AwfulSpell) => {
   const player = awful.player;
   const target = awful.target;
 
@@ -1428,7 +1428,7 @@ spells.aMurderofCrows.Callback((spell) => {
   }
 });
 
-const wailingArrowCallback = (spell: IAwfulSpell): void => {
+const wailingArrowCallback = (spell: AwfulSpell): void => {
   const target = awful.target;
 
   if (hunterGui.wailingArrow.enabled()) {
@@ -1586,7 +1586,7 @@ spells.muzzle.Callback((spell) => {
 
 spells.counterShot.Callback('mechanic', (spell, unit) => {
   const player = awful.player;
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (target.los && target.playerFacing && target.distanceTo(player) < 40) {
     spell.Cast(target);
@@ -1634,7 +1634,7 @@ spells.tranquilizingShot.Callback('mechanic', (spell, unit) => {
 
 spells.freezingTrap.Callback('mechanic', (spell, unit) => {
   const player = awful.player;
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (target.los && target.distanceTo(player) < 40) {
     spell.AoECast(target);
@@ -1643,7 +1643,7 @@ spells.freezingTrap.Callback('mechanic', (spell, unit) => {
 
 spells.tarTrap.Callback('mechanic', (spell, unit) => {
   const player = awful.player;
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (target.los && target.distanceTo(player) <= 40) {
     spell.AoECast(target);
@@ -1652,7 +1652,7 @@ spells.tarTrap.Callback('mechanic', (spell, unit) => {
 
 spells.bindingShot.Callback('mechanic', (spell, unit) => {
   const player = awful.player;
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (target.los && target.distanceTo(player) <= 30) {
     spell.AoECast(target);
@@ -1661,7 +1661,7 @@ spells.bindingShot.Callback('mechanic', (spell, unit) => {
 
 spells.serpentSting.Callback('mechanic', (spell, unit) => {
   const player = awful.player;
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (target.los && target.playerFacing && target.distanceTo(player) <= 40) {
     spell.Cast(target);
@@ -1693,7 +1693,7 @@ spells.intimidation.Callback((spell) => {
 spells.intimidation.Callback('mechanic', (spell, unit) => {
   const pet = awful.pet;
   const player = awful.player;
-  const target = unit as IAwfulUnit;
+  const target = unit as AwfulUnit;
 
   if (!pet.exists || pet.dead) return;
 
@@ -1744,7 +1744,7 @@ spells.mendRevivePet.Callback('mend', (spell) => {
   }
 });
 
-const callPetCallback = (spell: IAwfulSpell): void => {
+const callPetCallback = (spell: AwfulSpell): void => {
   if (spell.Cast()) petStatus.triedPetCall = true;
 };
 
@@ -1838,7 +1838,7 @@ spells.misdirection.Callback((spell) => {
 
 // Base callback
 
-const racialCallback = (spell: IAwfulSpell): void => {
+const racialCallback = (spell: AwfulSpell): void => {
   if (hunterGui.racial.enabled()) {
     spell.Cast();
   }

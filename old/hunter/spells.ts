@@ -8,7 +8,7 @@ export const barbedShot = NewSpell(217200, {
   targeted: true,
   ranged: true,
   bleed: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const barrage = NewSpell(120360, {
@@ -18,13 +18,13 @@ export const barrage = NewSpell(120360, {
 export const killCommandBM = NewSpell(34026, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const cobraShot = NewSpell(193455, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const killShot = NewSpell(53351, {
@@ -36,26 +36,26 @@ export const killShot = NewSpell(53351, {
 export const multiShotBM = NewSpell(2643, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const multiShotMM = NewSpell(257620, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const aimedShot = NewSpell(19434, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const steadyShot = NewSpell(56641, {
   targeted: true,
   ranged: true,
   ignoreMoving: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const arcaneShot = NewSpell(185358, {
@@ -107,7 +107,7 @@ export const killCommandSV = NewSpell(259489, {
 export const killShotSV = NewSpell(320976, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 // Cooldowns
@@ -150,13 +150,13 @@ export const steelTrap = NewSpell(162488, {
 export const wailingArrow = NewSpell(392060, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.magic,
+  damage: AwfulSpellType.Magic,
 });
 
 export const deathChakram = NewSpell(375891, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.magic,
+  damage: AwfulSpellType.Magic,
 });
 
 export const direBeast = NewSpell(120679, {
@@ -221,7 +221,7 @@ export const muzzle = NewSpell(187707, {
 
 export const freezingTrap = NewSpell(187650, {
   ranged: true,
-  cc: CCType.stun,
+  cc: CCType.Stun,
   radius: 3,
   targeted: false,
 });

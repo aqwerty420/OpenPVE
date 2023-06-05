@@ -1,6 +1,6 @@
 export class MyTrinket {
   private slot: number;
-  private trinket: IAwfulItem | null;
+  private trinket: AwfulItem | null;
 
   constructor(slot: number) {
     this.slot = slot;

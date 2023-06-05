@@ -1,4 +1,3 @@
-
 export const enum HunterBuffs {
   aspectOfTheTurtle = 186265,
   aspectOfTheWild = 193530,

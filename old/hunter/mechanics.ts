@@ -16,8 +16,8 @@ let lastExplosive = 0;
 let lastRotation = 0;
 let rotationModified = false;
 
-const getClosestToExplode = (): IAwfulUnit | undefined => {
-  let bestExplosive: IAwfulUnit | undefined = undefined;
+const getClosestToExplode = (): AwfulUnit | undefined => {
+  let bestExplosive: AwfulUnit | undefined = undefined;
 
   awful.explosives.loop((explosive) => {
     if (
@@ -34,7 +34,7 @@ const getClosestToExplode = (): IAwfulUnit | undefined => {
   return bestExplosive;
 };
 
-const killClosestToExplode = (explosive: IAwfulUnit) => {
+const killClosestToExplode = (explosive: AwfulUnit) => {
   if (explosive.castRemains < awful.buffer + 0.5) return;
 
   if (!explosive.playerFacing) {
@@ -106,7 +106,7 @@ const volatileSpark = new MyCheckBox(
   'Kick / Dispel Volatile Spark'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return volatileSpark.enabled();
   },
   [
@@ -132,7 +132,7 @@ const monotonousLecture = new MyCheckBox(
 );
 // TODO: channelTarget
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.channelID === 388392 &&
       unit.castTarget != undefined &&
@@ -152,7 +152,7 @@ const manaVoid = new MyCheckBox(
   'Mana Void',
   "Use Feign Death on 'Mana Void' - Corrupted Manafiend"
 );
-const manavoidCallback = (unit: IAwfulUnit) => {
+const manavoidCallback = (unit: AwfulUnit) => {
   return (
     unit.castID === 388863 &&
     unit.castTarget != undefined &&
@@ -173,7 +173,7 @@ const arcaneMissiles = new MyCheckBox(
 );
 // TODO: channelTarget
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.channelID === 387974 &&
       unit.castTarget != undefined &&
@@ -200,7 +200,7 @@ const icyDevastator = new MyCheckBox(
   'Use Feign Death on Icy Devastator'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return icyDevastator.enabled() && unit.debuff(387151) != undefined;
   },
   [hunterSpells.feignDeath]
@@ -213,7 +213,7 @@ const nullmagicHornswog = new MyCheckBox(
   'Use Binding Shot on Nullmagic Hornswog'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return !unit.dead && !unit.cc && nullmagicHornswog.enabled();
   },
   [hunterSpells.bindingShot],
@@ -227,7 +227,7 @@ const shoulderSlam = new MyCheckBox(
   "Use Feign Death on 'Shoulder Slam' - Drakonid Breaker"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 391136 &&
       unit.castTarget != undefined &&
@@ -247,7 +247,7 @@ const erraticGrowth = new MyCheckBox(
   'Use Feign Death on Erratic Growth'
 );
 // TODO: channelTarget
-const erraticGrowthCallback = (unit: IAwfulUnit) => {
+const erraticGrowthCallback = (unit: AwfulUnit) => {
   return (
     unit.channelID === 375596 &&
     unit.castTarget != undefined &&
@@ -267,7 +267,7 @@ const wakingBane = new MyCheckBox(
   "Use Feign Death on 'Waking Bane' - Arcane Elemental"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 386546 &&
       unit.castTarget != undefined &&
@@ -295,7 +295,7 @@ const rotfangHyena = new MyCheckBox(
   'Use Binding Shot & Tar Trap on Rotfang Hyena'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return !unit.dead && !unit.cc && rotfangHyena.enabled();
   },
   [hunterSpells.bindingShot, hunterSpells.tarTrap],
@@ -309,7 +309,7 @@ const decayingSlime = new MyCheckBox(
   'Use Binding Shot on Decaying Slime'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return !unit.dead && !unit.cc && decayingSlime.enabled();
   },
   [hunterSpells.bindingShot],
@@ -328,7 +328,7 @@ const hypnosis = new MyCheckBox(
   "Use Feign Death on 'Hypnosis' - Hypnosis Bat"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 373618 &&
       unit.castTarget != undefined &&
@@ -349,7 +349,7 @@ const suppress = new MyCheckBox(
   "Use Feign Death on 'Suppress' - Guardian Construct"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.channelID === 209413 &&
       unit.castTarget != undefined &&
@@ -369,7 +369,7 @@ const nightfallOrb = new MyCheckBox(
   "Use Feign Death on 'Nightfall Orb' - Duskwatch Arcanist"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 209410 &&
       unit.castTarget != undefined &&
@@ -389,7 +389,7 @@ const hinder = new MyCheckBox(
   "Use Feign Death on 'Hinder' - Vigilant Duskwatch"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 215204 &&
       unit.castTarget != undefined &&
@@ -410,7 +410,7 @@ const bewitch = new MyCheckBox(
   "Use Feign Death on 'Bewitch' - Shadow Mistress"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 211470 &&
       unit.castTarget != undefined &&
@@ -431,7 +431,7 @@ const disintegrationBeam = new MyCheckBox(
   "Use Feign Death on 'Disintegration Beam' - Baalgar"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.channelID === 183653 &&
       unit.castTarget != undefined &&
@@ -451,7 +451,7 @@ const firebolt = new MyCheckBox(
   "Use Feign Death on 'Firebolt' - Blazing Imp"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 211406 &&
       unit.castTarget != undefined &&
@@ -477,7 +477,7 @@ const ragingEmber = new MyCheckBox(
   'Use Binding Shot on Raging Ember'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return !unit.dead && !unit.cc && ragingEmber.enabled();
   },
   [hunterSpells.bindingShot],
@@ -496,7 +496,7 @@ const stormBolt = new MyCheckBox(
   "Use Feign Death on 'Storm Bolt' - Stormspeaker / Stormcaster"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 386012 &&
       unit.castTarget != undefined &&
@@ -510,7 +510,7 @@ mechanicsHandler.add(
   194894
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 376725 &&
       unit.castTarget != undefined &&
@@ -531,7 +531,7 @@ const quickShot = new MyCheckBox(
   "Use Feign Death on 'Quick Shot' - Teera"
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 386411 &&
       unit.castTarget != undefined &&
@@ -557,7 +557,7 @@ const inferno = new MyCheckBox(
   'Use Feign Death on Inferno'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       unit.castID === 373692 &&
       unit.castTarget != undefined &&
@@ -577,7 +577,7 @@ const cinderbolt = new MyCheckBox(
   'Use Feign Death on Cinderbolt'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return (
       (unit.castID === 384194 || unit.castID === 384197) &&
       unit.castTarget != undefined &&
@@ -606,7 +606,7 @@ const scentOfBlood = new MyCheckBox(
   'Use Feign Death when targeted by Scent of Blood'
 );
 mechanicsHandler.add(
-  (unit: IAwfulUnit) => {
+  (unit: AwfulUnit) => {
     return scentOfBlood.enabled() && unit.debuff(196838) != undefined;
   },
   [hunterSpells.feignDeath]

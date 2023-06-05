@@ -106,7 +106,7 @@ awful.addUpdateCallback(() => {
   if (!target.exists) return;
 });
 
-const hunterDraws = (draw: IAwfulDrawer): void => {
+const hunterDraws = (draw: AwfulDrawer): void => {
   const player = awful.player;
   const pet = awful.pet;
 
@@ -139,7 +139,7 @@ const hunterDraws = (draw: IAwfulDrawer): void => {
   }
 };
 
-const draws = (draw: IAwfulDrawer) => {
+const draws = (draw: AwfulDrawer) => {
   globalDraws(draw, hunterGui, 40, false);
   hunterDraws(draw);
 };
