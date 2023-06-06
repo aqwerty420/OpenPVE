@@ -306,7 +306,7 @@ export class Defensive {
       step: 1,
     });
 
-    this.unit = unit;
+    this.unit = () => unit();
   }
 
   public usable(): boolean {

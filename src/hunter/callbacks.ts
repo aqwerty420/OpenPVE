@@ -328,6 +328,8 @@ spells.cobraShot.Callback('bm.cobraShot.cleave.1', (spell) => {
   }
 });
 
+//#endregion Cobra Shot
+
 //#region Mechanic
 
 spells.cobraShot.Callback('mechanic', (spell, target: AwfulUnit) => {
