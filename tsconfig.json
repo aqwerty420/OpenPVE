@@ -27,8 +27,6 @@
       { "name": "./plugins/protected.ts" },
       // Copy loader
       { "name": "./plugins/load.ts" },
-      // Cleaner
-      { "name": "./plugins/clean.ts" }
     ]
   },
   "include": ["src/**/*"],

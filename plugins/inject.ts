@@ -13,7 +13,11 @@ const plugin: tstl.Plugin = {
     void emitHost;
 
     for (const file of result) {
-      file.code = `local Unlocker, awful, openPVE = ...\n${file.code}`;
+      file.code = `local Unlocker, awful, openPVE = ...${file.code}`;
+      file.code = file.code.replace(
+        'return require("loader", ...)\n',
+        'require("loader", ...)\n'
+      );
     }
   },
 };
