@@ -96,7 +96,7 @@ awful.addUpdateCallback(() => {
   const target = awful.target;
 
   if (isValidUnitForModeParams(target)) {
-    modeParams.fromUnit = awful.player;
+    modeParams.fromUnit = awful.target;
   } else {
     modeParams.fromUnit = awful.player;
   }

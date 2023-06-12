@@ -42,24 +42,25 @@ const st = (): void => {
   // 0 - actions.st+=/dire_beast
   hunterSpells.direBeast();
 
-  // actions.st+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
+  // TODO - actions.st+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
 
-  // actions.st+=/kill_shot
+  // 0 - actions.st+=/kill_shot
   hunterSpells.killShot();
 
-  // actions.st+=/aspect_of_the_wild
+  // 0 - actions.st+=/aspect_of_the_wild
   hunterSpells.aspectOfTheWild();
 
-  // actions.st+=/cobra_shot
+  // 0 - actions.st+=/cobra_shot
   hunterSpells.cobraShot();
 
-  // actions.st+=/wailing_arrow,if=pet.main.buff.frenzy.remains>execute_time|target.time_to_die<5
+  // 0 - actions.st+=/wailing_arrow,if=pet.main.buff.frenzy.remains>execute_time|target.time_to_die<5
+  hunterSpells.wailingArrow();
 
-  // actions.st+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
+  // TODO - actions.st+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
 
-  // actions.st+=/arcane_pulse,if=buff.bestial_wrath.down|target.time_to_die<5
+  // TODO - actions.st+=/arcane_pulse,if=buff.bestial_wrath.down|target.time_to_die<5
 
-  // actions.st+=/arcane_torrent,if=(focus+focus.regen+15)<focus.max
+  // TODO - actions.st+=/arcane_torrent,if=(focus+focus.regen+15)<focus.max
 };
 
 const cleave = (): void => {
@@ -112,19 +113,21 @@ const cleave = (): void => {
   // 1 - actions.cleave+=/barrage,if=pet.main.buff.frenzy.remains>execute_time
   hunterSpells.barrage('bm.barrage.cleave.1');
 
-  // actions.cleave+=/multishot,if=pet.main.buff.beast_cleave.remains<gcd*2
+  // X - actions.cleave+=/multishot,if=pet.main.buff.beast_cleave.remains<gcd*2
 
-  // actions.cleave+=/aspect_of_the_wild
+  // 0 - actions.cleave+=/aspect_of_the_wild
   hunterSpells.aspectOfTheWild();
 
-  // actions.cleave+=/cobra_shot,if=focus.time_to_max<gcd*2|buff.aspect_of_the_wild.up&focus.time_to_max<gcd*4
+  // 1 - actions.cleave+=/cobra_shot,if=focus.time_to_max<gcd*2|buff.aspect_of_the_wild.up&focus.time_to_max<gcd*4
+  hunterSpells.cobraShot('bm.cobraShot.cleave.1');
 
-  // actions.cleave+=/wailing_arrow,if=pet.main.buff.frenzy.remains>execute_time|fight_remains<5
+  // 0 - actions.cleave+=/wailing_arrow,if=pet.main.buff.frenzy.remains>execute_time|fight_remains<5
+  hunterSpells.wailingArrow();
 
-  // actions.cleave+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
+  // TODO - actions.cleave+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
 
-  // actions.cleave+=/arcane_torrent,if=(focus+focus.regen+30)<focus.max
+  // TODO - actions.cleave+=/arcane_torrent,if=(focus+focus.regen+30)<focus.max
 
-  // actions.cleave+=/kill_shot
+  // 0 - actions.cleave+=/kill_shot
   hunterSpells.killShot();
 };

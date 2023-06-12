@@ -416,6 +416,26 @@ spells.cobraShot.Callback('bm.cobraShot.cleave.1', (spell) => {
 
 //#endregion Cobra Shot
 
+//#region Wailling Arrow
+
+spells.wailingArrow.Callback((spell) => {
+  const pet = awful.pet;
+  const target = awful.target;
+
+  if (
+    hunterUI.wailingArrow.usable() &&
+    (!petAlive() ||
+      !pet.buff(petBuffs.frenzy) ||
+      pet.buffRemains(petBuffs.frenzy) >
+        spells.wailingArrow.castTime + awful.buffer * 2 ||
+      awful.FightRemains() < 5)
+  ) {
+    spell.Cast(target);
+  }
+});
+
+//#endregion Wailling Arrow
+
 //#region Mechanic
 
 spells.cobraShot.Callback('mechanic', (spell, target: AwfulUnit) => {
