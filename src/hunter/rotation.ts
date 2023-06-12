@@ -1,4 +1,4 @@
-import * as generalUI from '../core/ui';
+import * as coreUI from '../core/ui';
 
 export const canCombat = (): boolean => {
   const player = awful.player;
@@ -11,5 +11,5 @@ export const canStartCombat = (): boolean => {
   const player = awful.player;
   const target = awful.target;
 
-  return player.combat || target.combat || generalUI.startCombat.enabled();
+  return player.combat || target.combat || coreUI.startCombat.enabled();
 };

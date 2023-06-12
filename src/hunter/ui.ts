@@ -1,11 +1,11 @@
 import { CooldownMode } from '../core/components';
-import * as globalUI from '../core/ui';
+import * as coreUI from '../core/ui';
 import { MisdirectionModeSelector, PetSlotSelector } from './components';
 import * as spells from './spells';
 
 export const misdirectionMode = new MisdirectionModeSelector();
 
-export const maxSerpentSting = globalUI.generalTab.slider({
+export const maxSerpentSting = coreUI.generalTab.slider({
   var: 'maxSerpentSting',
   text: 'Max Serpent Sting',
   tooltip: 'Maximum number of Serpent Sting active.',
@@ -21,49 +21,49 @@ export const petSlot = new PetSlotSelector();
 
 //#region Cooldowns - Hunter
 
-export const aMurderofCrows = globalUI.cooldownsTab.cooldown({
+export const aMurderofCrows = coreUI.cooldownsTab.cooldown({
   var: 'aMurderofCrows',
   usable: spells.aMurderofCrows,
   default: CooldownMode.Always,
 });
 
-export const aspectOfTheWild = globalUI.cooldownsTab.cooldown({
+export const aspectOfTheWild = coreUI.cooldownsTab.cooldown({
   var: 'aspectOfTheWild',
   usable: spells.aspectOfTheWild,
   default: CooldownMode.Toggle,
 });
 
-export const barrage = globalUI.cooldownsTab.cooldown({
+export const barrage = coreUI.cooldownsTab.cooldown({
   var: 'barrage',
   usable: spells.barrage,
   default: CooldownMode.Always,
 });
 
-export const deathChakram = globalUI.cooldownsTab.cooldown({
+export const deathChakram = coreUI.cooldownsTab.cooldown({
   var: 'deathChakram',
   usable: spells.deathChakram,
   default: CooldownMode.Always,
 });
 
-export const explosiveShot = globalUI.cooldownsTab.cooldown({
+export const explosiveShot = coreUI.cooldownsTab.cooldown({
   var: 'explosiveShot',
   usable: spells.explosiveShot,
   default: CooldownMode.Always,
 });
 
-export const stampede = globalUI.cooldownsTab.cooldown({
+export const stampede = coreUI.cooldownsTab.cooldown({
   var: 'stampede',
   usable: spells.stampede,
   default: CooldownMode.Toggle,
 });
 
-export const steelTrap = globalUI.cooldownsTab.cooldown({
+export const steelTrap = coreUI.cooldownsTab.cooldown({
   var: 'steelTrap',
   usable: spells.steelTrap,
   default: CooldownMode.Always,
 });
 
-export const wailingArrow = globalUI.cooldownsTab.cooldown({
+export const wailingArrow = coreUI.cooldownsTab.cooldown({
   var: 'wailingArrow',
   usable: spells.wailingArrow,
   default: CooldownMode.Always,
@@ -73,25 +73,25 @@ export const wailingArrow = globalUI.cooldownsTab.cooldown({
 
 //#region Cooldowns - Beast Mastery
 
-export const bestialWrath = globalUI.cooldownsTab.cooldown({
+export const bestialWrath = coreUI.cooldownsTab.cooldown({
   var: 'bestialWrath',
   usable: spells.bestialWrath,
   default: CooldownMode.MiniToggle,
 });
 
-export const bloodshed = globalUI.cooldownsTab.cooldown({
+export const bloodshed = coreUI.cooldownsTab.cooldown({
   var: 'bloodshed',
   usable: spells.bloodshed,
   default: CooldownMode.Always,
 });
 
-export const callOfTheWild = globalUI.cooldownsTab.cooldown({
+export const callOfTheWild = coreUI.cooldownsTab.cooldown({
   var: 'callOfTheWild',
   usable: spells.callOfTheWild,
   default: CooldownMode.Toggle,
 });
 
-export const direBeast = globalUI.cooldownsTab.cooldown({
+export const direBeast = coreUI.cooldownsTab.cooldown({
   var: 'direBeast',
   usable: spells.direBeast,
   default: CooldownMode.Always,
@@ -103,19 +103,19 @@ export const direBeast = globalUI.cooldownsTab.cooldown({
 
 //#region Interrupts
 
-export const counterShot = globalUI.interruptsTab.interrupt({
+export const counterShot = coreUI.interruptsTab.interrupt({
   var: 'counterShot',
   usable: spells.counterShot,
   default: true,
 });
 
-export const freezingTrap = globalUI.interruptsTab.interrupt({
+export const freezingTrap = coreUI.interruptsTab.interrupt({
   var: 'freezingTrap',
   usable: spells.freezingTrap,
   default: true,
 });
 
-export const intimidation = globalUI.interruptsTab.interrupt({
+export const intimidation = coreUI.interruptsTab.interrupt({
   var: 'intimidation',
   usable: spells.intimidation,
   default: true,

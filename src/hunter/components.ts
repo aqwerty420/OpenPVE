@@ -1,5 +1,5 @@
 import { Dropdown, awfulUI } from '../core/components';
-import * as globalUI from '../core/ui';
+import * as coreUI from '../core/ui';
 import * as spells from './spells';
 
 export enum MisdirectionMode {
@@ -42,7 +42,7 @@ export class MisdirectionModeSelector extends Dropdown<MisdirectionMode> {
   constructor() {
     const name = spells.misdirection['name'];
 
-    super(globalUI.generalTab.tab, {
+    super(coreUI.generalTab.tab, {
       var: 'missdirectionModdes',
       options: misdirectionOptions,
       header: `${awful.textureEscape(spells.misdirection.id, 20)} - ${name}`,

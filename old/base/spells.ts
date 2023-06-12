@@ -13,7 +13,7 @@ export const lightsJudgment = awful.NewSpell(255647, {
 export const bagOfTricks = awful.NewSpell(312411, {
   targeted: true,
   ranged: true,
-  damage: AwfulSpellType.physical,
+  damage: AwfulSpellType.Physical,
 });
 
 export const berserking = awful.NewSpell(26297, { targeted: false });

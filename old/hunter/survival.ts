@@ -270,7 +270,7 @@ const survival = () => {
 
 ponche.hunter.survival = awful.Actor.New({
   spec: AwfulSpecs.Third,
-  class: AwfulClasses.hunter,
+  class: AwfulClasses.Hunter,
 });
 
 ponche.hunter.survival.Init(() => {

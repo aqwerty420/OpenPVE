@@ -1,8 +1,8 @@
 interface IPonche {
   hunter: {
-    beastMastery?: IAwfulSpecialization;
-    marksmanship?: IAwfulSpecialization;
-    survival?: IAwfulSpecialization;
+    beastMastery?: AwfulSpecialization;
+    marksmanship?: AwfulSpecialization;
+    survival?: AwfulSpecialization;
   };
 }
 
@@ -18,7 +18,7 @@ interface IDynamicParameters {
   range?: number;
   rangeLiteral?: number;
   melee?: true;
-  rangeFromUnit?: IAwfulUnit;
+  rangeFromUnit?: AwfulUnit;
   rangeFrom?: number;
   rangeFromLiteral?: number;
   rangeFromMelee?: true;
@@ -34,5 +34,5 @@ interface IDynamicParameters {
 }
 
 interface IDynamicCache {
-  [key: string]: IAwfulList<IAwfulUnit>;
+  [key: string]: AwfulList<AwfulUnit>;
 }

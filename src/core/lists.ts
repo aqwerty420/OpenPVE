@@ -581,6 +581,8 @@ export const enemyBuffs = {
   sentinelsWatch: 215435,
   iceShield: 372749,
   iceBulwark: 372988,
+  overwhelmingEnergy: 384132,
+  primalBarrier: 374779,
 };
 
 export const kickImmuneData = [
@@ -593,6 +595,11 @@ export const stunImmuneData = [
   enemyBuffs.inspiringPresence,
   enemyBuffs.sentinelsWatch,
   enemyBuffs.iceShield,
+];
+
+export const damageImmuneData = [
+  enemyBuffs.overwhelmingEnergy,
+  enemyBuffs.primalBarrier,
 ];
 
 export class Dictionnary {
