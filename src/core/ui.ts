@@ -7,6 +7,8 @@ import {
   varSettings,
 } from './components';
 
+import * as coreItems from './items';
+
 export const rotationToggle = new RotationToggle();
 
 export const rotationMode = new RotationModeSwitch();
@@ -166,6 +168,14 @@ interruptsTab.header({
 
 export const defensivesTab = new Tab('Interrupts');
 
-// TODO: healtsone settings
+export const healthStone = defensivesTab.playerDefensive({
+  var: 'healthStone',
+  usable: coreItems.healthStone,
+  minHP: 40,
+});
 
-// TODO: potion settings
+export const refreshingHealingPotion = defensivesTab.playerDefensive({
+  var: 'refreshingHealingPotion',
+  usable: coreItems.refreshingHealingPotionThree,
+  minHP: 40,
+});

@@ -1,5 +1,11 @@
+import {
+  healthStone,
+  refreshingHealingPotionOne,
+  refreshingHealingPotionThree,
+  refreshingHealingPotionTwo,
+} from './items';
 import * as coreUI from './ui';
-import { canCombat } from './utility';
+import { canCombat, useItem } from './utility';
 
 export const selectNewTarget = (
   getEnemies: () => AwfulList<AwfulUnit>
@@ -20,3 +26,12 @@ export const selectNewTarget = (
     bestEnemy.setTarget();
   }
 };
+
+export const coreDefensives = [
+  () => coreUI.healthStone.usable() && useItem(healthStone),
+  () =>
+    coreUI.refreshingHealingPotion.usable() &&
+    useItem(refreshingHealingPotionThree) &&
+    useItem(refreshingHealingPotionTwo) &&
+    useItem(refreshingHealingPotionOne),
+];

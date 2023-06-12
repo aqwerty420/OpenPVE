@@ -139,5 +139,11 @@ export const canStunEnemy = (enemy: AwfulUnit, delay?: number): boolean => {
   );
 };
 
-export const callSpells = (spells: AwfulSpell[]): void =>
-  spells.forEach((spell) => spell());
+export const callAll = (spells: Array<() => void>): void =>
+  spells.forEach((toCall) => toCall());
+
+export const useItem = (item: AwfulItem): boolean => {
+  if (!item.usable) return false;
+
+  return item.Use();
+};
