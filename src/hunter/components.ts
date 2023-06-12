@@ -81,7 +81,7 @@ export class PetSlotSelector {
       valueText: () => this.valueText(),
     });
 
-    if (!this.value()) awfulUI.settings.set(this.var, 1);
+    if (this.value() === undefined) awfulUI.settings.set(this.var, 1);
   }
 
   private valueText(): string {

@@ -1,23 +1,24 @@
-import * as spells from './spells';
+import * as hunterSpells from './spells';
 import * as hunterUI from './ui';
 import * as coreUI from '../core/ui';
-import {
-  petBuffs,
-  hunterTalents,
-  hunterBuffs,
-  fourthyFightableLosFacingUnits,
-} from './lists';
+import { petBuffs, hunterTalents, hunterBuffs } from './lists';
 import { executeTime, fullRechargeTime, timeToMax } from '../core/simc';
-import { canCombat, canStartCombat } from './rotation';
 import { hunterCache } from './cache';
+import {
+  canCombat,
+  canKickEnemy,
+  canStartCombat,
+  canStunEnemy,
+} from '../core/utility';
+import {
+  disengageForwardInfos,
+  fourthyEngagedLosFacingUnits,
+  fourthyEngagedLosUnits,
+  fourthyFightableLosFacingUnits,
+  petAlive,
+} from './utility';
 
-const petAlive = (): boolean => {
-  const pet = awful.pet;
-
-  return pet.exists && !pet.dead;
-};
-
-//#region Barbed Shot
+//#region DPS
 
 const barbedShotLowestCallback = (spell: AwfulSpell): boolean => {
   const target = hunterCache.lowestbarbedShot();
@@ -25,7 +26,7 @@ const barbedShotLowestCallback = (spell: AwfulSpell): boolean => {
   return spell.Cast(target);
 };
 
-spells.barbedShot.Callback((spell) => {
+hunterSpells.barbedShot.Callback((spell) => {
   const target = awful.target;
 
   if (!petAlive()) return;
@@ -33,13 +34,13 @@ spells.barbedShot.Callback((spell) => {
   spell.Cast(target);
 });
 
-spells.barbedShot.Callback('lowest', (spell) => {
+hunterSpells.barbedShot.Callback('lowest', (spell) => {
   if (!petAlive()) return;
 
   barbedShotLowestCallback(spell);
 });
 
-spells.barbedShot.Callback('refresh', (spell) => {
+hunterSpells.barbedShot.Callback('refresh', (spell) => {
   const pet = awful.pet;
 
   if (!canCombat() || !petAlive() || !canStartCombat()) return;
@@ -55,7 +56,7 @@ spells.barbedShot.Callback('refresh', (spell) => {
     else barbedShotLowestCallback(spell);
 });
 
-spells.barbedShot.Callback('bm.barbedShot.st.1', (spell) => {
+hunterSpells.barbedShot.Callback('bm.barbedShot.st.1', (spell) => {
   const player = awful.player;
   const pet = awful.pet;
 
@@ -70,13 +71,13 @@ spells.barbedShot.Callback('bm.barbedShot.st.1', (spell) => {
     (player.hasTalent(hunterTalents.scentOfBlood) &&
       pet.buffStacks(petBuffs.frenzy) < 3 &&
       hunterUI.bestialWrath.usable() &&
-      spells.bestialWrath.cd <= awful.gcd)
+      hunterSpells.bestialWrath.cd <= awful.gcd)
   )
     if (coreUI.rotationMode.singleTarget()) spell.Cast(awful.target);
     else barbedShotLowestCallback(spell);
 });
 
-spells.barbedShot.Callback('bm.barbedShot.st.2', (spell) => {
+hunterSpells.barbedShot.Callback('bm.barbedShot.st.2', (spell) => {
   const player = awful.player;
 
   if (!petAlive()) return;
@@ -85,19 +86,20 @@ spells.barbedShot.Callback('bm.barbedShot.st.2', (spell) => {
     (player.hasTalent(hunterTalents.wildInstincts) &&
       player.buff(hunterTalents.callOfTheWild)) ||
     (player.hasTalent(hunterTalents.wildCall) &&
-      spells.barbedShot.chargesFrac > 1.4) ||
-    (fullRechargeTime(spells.barbedShot) < awful.gcd + awful.buffer * 2 &&
+      hunterSpells.barbedShot.chargesFrac > 1.4) ||
+    (fullRechargeTime(hunterSpells.barbedShot) < awful.gcd + awful.buffer * 2 &&
       (!hunterUI.bestialWrath.usable() ||
-        spells.bestialWrath.cd > awful.gcd)) ||
+        hunterSpells.bestialWrath.cd > awful.gcd)) ||
     (player.hasTalent(hunterTalents.scentOfBlood) &&
       ((hunterUI.bestialWrath.usable() &&
-        spells.bestialWrath.cd < 12 + awful.gcd + awful.buffer) ||
-        (fullRechargeTime(spells.barbedShot) + awful.gcd + awful.buffer < 8 &&
+        hunterSpells.bestialWrath.cd < 12 + awful.gcd + awful.buffer) ||
+        (fullRechargeTime(hunterSpells.barbedShot) + awful.gcd + awful.buffer <
+          8 &&
           hunterUI.bestialWrath.usable() &&
-          spells.bestialWrath.cd <
+          hunterSpells.bestialWrath.cd <
             24 +
               (8 - awful.gcd) +
-              fullRechargeTime(spells.barbedShot) +
+              fullRechargeTime(hunterSpells.barbedShot) +
               awful.buffer))) ||
     awful.FightRemains() < 9
   )
@@ -105,7 +107,7 @@ spells.barbedShot.Callback('bm.barbedShot.st.2', (spell) => {
     else barbedShotLowestCallback(spell);
 });
 
-spells.barbedShot.Callback('bm.barbedShot.cleave.1', (spell) => {
+hunterSpells.barbedShot.Callback('bm.barbedShot.cleave.1', (spell) => {
   const player = awful.player;
   const pet = awful.pet;
 
@@ -119,14 +121,15 @@ spells.barbedShot.Callback('bm.barbedShot.cleave.1', (spell) => {
       frenzyRemain >= awful.buffer) ||
     (player.hasTalent(hunterTalents.scentOfBlood) &&
       hunterUI.bestialWrath.usable() &&
-      spells.bestialWrath.cd < 12 + awful.gcd) ||
-    (fullRechargeTime(spells.barbedShot) < awful.gcd + awful.buffer &&
-      (!hunterUI.bestialWrath.usable() || spells.bestialWrath.cd > awful.gcd))
+      hunterSpells.bestialWrath.cd < 12 + awful.gcd) ||
+    (fullRechargeTime(hunterSpells.barbedShot) < awful.gcd + awful.buffer &&
+      (!hunterUI.bestialWrath.usable() ||
+        hunterSpells.bestialWrath.cd > awful.gcd))
   )
     barbedShotLowestCallback(spell);
 });
 
-spells.barbedShot.Callback('bm.barbedShot.cleave.2', (spell) => {
+hunterSpells.barbedShot.Callback('bm.barbedShot.cleave.2', (spell) => {
   const player = awful.player;
 
   if (!petAlive()) return;
@@ -139,10 +142,6 @@ spells.barbedShot.Callback('bm.barbedShot.cleave.2', (spell) => {
   )
     barbedShotLowestCallback(spell);
 });
-
-//#endregion Barbed Shot
-
-//#region Kill Command
 
 const killCommandDistanceCheck = (target: AwfulUnit): boolean => {
   const pet = awful.pet;
@@ -158,13 +157,13 @@ const killCommandCallback = (spell: AwfulSpell) => {
   }
 };
 
-spells.killCommand.Callback((spell) => {
+hunterSpells.killCommand.Callback((spell) => {
   if (!petAlive()) return;
 
   killCommandCallback(spell);
 });
 
-spells.killCommand.Callback('bm.killCommand.st.1', (spell) => {
+hunterSpells.killCommand.Callback('bm.killCommand.st.1', (spell) => {
   const player = awful.player;
 
   if (
@@ -176,7 +175,7 @@ spells.killCommand.Callback('bm.killCommand.st.1', (spell) => {
   }
 });
 
-spells.killCommand.Callback('bm.killCommand.cleave.1', (spell) => {
+hunterSpells.killCommand.Callback('bm.killCommand.cleave.1', (spell) => {
   const player = awful.player;
 
   if (!petAlive()) return;
@@ -190,21 +189,13 @@ spells.killCommand.Callback('bm.killCommand.cleave.1', (spell) => {
   }
 });
 
-//#endregion Kill Command
-
-//#region Call of the Wild
-
-spells.callOfTheWild.Callback((spell) => {
+hunterSpells.callOfTheWild.Callback((spell) => {
   if (!hunterUI.callOfTheWild.usable()) return;
 
   spell.Cast();
 });
 
-//#endregion Call of the Wild
-
-//#region Multi Shot
-
-spells.multiShot.Callback('bm.multishot.cleave.1', (spell) => {
+hunterSpells.multiShot.Callback('bm.multishot.cleave.1', (spell) => {
   const player = awful.player;
   const pet = awful.pet;
   const target = awful.target;
@@ -216,11 +207,7 @@ spells.multiShot.Callback('bm.multishot.cleave.1', (spell) => {
   }
 });
 
-//#endregion Multi Shot
-
-//#region Death Chakram
-
-spells.deathChakram.Callback((spell) => {
+hunterSpells.deathChakram.Callback((spell) => {
   const target = awful.target;
 
   if (!hunterUI.deathChakram.usable()) return;
@@ -228,17 +215,13 @@ spells.deathChakram.Callback((spell) => {
   spell.Cast(target);
 });
 
-//#endregion Death Chakram
-
-//#region Bloodshed
-
 const bloodshedDistanceCheck = (target: AwfulUnit): boolean => {
   const pet = awful.pet;
 
   return pet.distanceToLiteral(target) <= 50;
 };
 
-spells.bloodshed.Callback((spell) => {
+hunterSpells.bloodshed.Callback((spell) => {
   const target = awful.target;
 
   if (
@@ -250,21 +233,13 @@ spells.bloodshed.Callback((spell) => {
   }
 });
 
-//#endregion Bloodshed
-
-//#region Stampede
-
-spells.stampede.Callback((spell) => {
+hunterSpells.stampede.Callback((spell) => {
   if (!hunterUI.stampede.usable()) return;
 
   spell.Cast();
 });
 
-//#endregion Stampede
-
-//#region A Murder of Crows
-
-spells.aMurderofCrows.Callback((spell) => {
+hunterSpells.aMurderofCrows.Callback((spell) => {
   const target = awful.target;
 
   if (!hunterUI.aMurderofCrows.usable()) return;
@@ -272,11 +247,7 @@ spells.aMurderofCrows.Callback((spell) => {
   spell.Cast(target);
 });
 
-//#endregion A Murder of Crows
-
-//#region Barrage
-
-spells.barrage.Callback('bm.barrage.cleave.1', (spell) => {
+hunterSpells.barrage.Callback('bm.barrage.cleave.1', (spell) => {
   const pet = awful.pet;
 
   if (
@@ -289,21 +260,13 @@ spells.barrage.Callback('bm.barrage.cleave.1', (spell) => {
   }
 });
 
-//#endregion Barrage
-
-//#region Steel Trap
-
-spells.steelTrap.Callback((spell) => {
+hunterSpells.steelTrap.Callback((spell) => {
   const target = awful.target;
 
   if (!hunterUI.steelTrap.usable()) return;
 
   spell.AoECast(target);
 });
-
-//#endregion Steel Trap
-
-//#region Explosive Shot
 
 const explosiveShotCallback = (spell: AwfulSpell): boolean => {
   const target = awful.target;
@@ -313,13 +276,9 @@ const explosiveShotCallback = (spell: AwfulSpell): boolean => {
   return spell.Cast(target);
 };
 
-spells.explosiveShot.Callback(explosiveShotCallback);
+hunterSpells.explosiveShot.Callback(explosiveShotCallback);
 
-//#endregion Explosive Shot
-
-//#region Bestial Wrath
-
-spells.bestialWrath.Callback((spell) => {
+hunterSpells.bestialWrath.Callback((spell) => {
   const player = awful.player;
   const target = awful.target;
 
@@ -332,21 +291,13 @@ spells.bestialWrath.Callback((spell) => {
   }
 });
 
-//#endregion Bestial Wrath
-
-//#region Dire Beast
-
-spells.direBeast.Callback((spell) => {
+hunterSpells.direBeast.Callback((spell) => {
   const target = awful.target;
 
   if (!hunterUI.direBeast.usable()) return;
 
   spell.Cast(target);
 });
-
-//#endregion Dire Beast
-
-//#region Kill Shot
 
 const killShotIgnoreHP = (): boolean => {
   const player = awful.player;
@@ -358,7 +309,7 @@ const killShotIgnoreHP = (): boolean => {
   );
 };
 
-spells.killShot.Callback((spell) => {
+hunterSpells.killShot.Callback((spell) => {
   const target = awful.target;
 
   if (!killShotIgnoreHP() && target.hp > 20) return;
@@ -366,7 +317,7 @@ spells.killShot.Callback((spell) => {
   spell.Cast(target);
 });
 
-spells.killShot.Callback('aoe', (spell) => {
+hunterSpells.killShot.Callback('aoe', (spell) => {
   const enemies = fourthyFightableLosFacingUnits();
 
   if (killShotIgnoreHP()) spell.Cast(awful.target);
@@ -378,11 +329,7 @@ spells.killShot.Callback('aoe', (spell) => {
   }
 });
 
-//#endregion Kill Shot
-
-//#region Aspect of the Wild
-
-spells.aspectOfTheWild.Callback((spell) => {
+hunterSpells.aspectOfTheWild.Callback((spell) => {
   const target = awful.target;
 
   if (!hunterUI.aspectOfTheWild.usable()) return;
@@ -390,17 +337,13 @@ spells.aspectOfTheWild.Callback((spell) => {
   spell.Cast(target);
 });
 
-//#endregion Aspect of the Wild
-
-//#region Cobra Shot
-
-spells.cobraShot.Callback((spell) => {
+hunterSpells.cobraShot.Callback((spell) => {
   const target = awful.target;
 
   spell.Cast(target);
 });
 
-spells.cobraShot.Callback('bm.cobraShot.cleave.1', (spell) => {
+hunterSpells.cobraShot.Callback('bm.cobraShot.cleave.1', (spell) => {
   const player = awful.player;
   const target = awful.target;
 
@@ -414,11 +357,7 @@ spells.cobraShot.Callback('bm.cobraShot.cleave.1', (spell) => {
   }
 });
 
-//#endregion Cobra Shot
-
-//#region Wailling Arrow
-
-spells.wailingArrow.Callback((spell) => {
+hunterSpells.wailingArrow.Callback((spell) => {
   const pet = awful.pet;
   const target = awful.target;
 
@@ -427,21 +366,148 @@ spells.wailingArrow.Callback((spell) => {
     (!petAlive() ||
       !pet.buff(petBuffs.frenzy) ||
       pet.buffRemains(petBuffs.frenzy) >
-        spells.wailingArrow.castTime + awful.buffer * 2 ||
+        hunterSpells.wailingArrow.castTime + awful.buffer * 2 ||
       awful.FightRemains() < 5)
   ) {
     spell.Cast(target);
   }
 });
 
-//#endregion Wailling Arrow
+//#endregion DPS
+
+//#region Interrupts
+
+hunterSpells.counterShot.Callback((spell) => {
+  if (!hunterUI.counterShot.enabled() || !coreUI.interrupts.enabled()) return;
+
+  const enemies = fourthyEngagedLosFacingUnits();
+
+  for (const enemy of enemies) {
+    if (canKickEnemy(enemy)) {
+      if (spell.Cast(enemy)) {
+        return;
+      }
+    }
+  }
+});
+
+hunterSpells.intimidation.Callback((spell) => {
+  const pet = awful.pet;
+  if (
+    !petAlive() ||
+    !hunterUI.intimidation.enabled() ||
+    !coreUI.interrupts.enabled()
+  )
+    return;
+
+  const enemies = fourthyEngagedLosUnits();
+
+  for (const enemy of enemies) {
+    if (enemy.distanceTo(pet) <= 50 && canStunEnemy(enemy, 0.5)) {
+      if (spell.Cast(enemy)) {
+        return;
+      }
+    }
+  }
+});
+
+//#endregion Interrupts
+
+//#region Defensive
+
+hunterSpells.exhilaration.Callback((spell) => {
+  if (hunterUI.exhilaration.usable()) {
+    spell.Cast();
+  }
+});
+
+hunterSpells.aspectOfTheTurtle.Callback((spell) => {
+  if (
+    hunterUI.aspectOfTheTurtle.usable() &&
+    !awful.player.buff(hunterBuffs.aspectOfTheTurtle)
+  ) {
+    spell.Cast();
+  }
+});
+
+hunterSpells.feignDeath.Callback((spell) => {
+  if (
+    hunterUI.feignDeath.usable() &&
+    !awful.player.buff(hunterBuffs.feignDeath)
+  ) {
+    spell.Cast();
+  }
+});
 
 //#region Mechanic
 
-spells.cobraShot.Callback('mechanic', (spell, target: AwfulUnit) => {
-  if (target.los && target.playerFacing && target.distance < 40) {
+hunterSpells.cobraShot.Callback('mechanic', (spell, unit: AwfulUnit) => {
+  if (unit.los && unit.playerFacing && unit.distance < 40) {
+    spell.Cast(unit);
+  }
+});
+
+hunterSpells.counterShot.Callback('mechanic', (spell, unit: AwfulUnit) => {
+  if (unit.los && unit.playerFacing && unit.distance < 40) {
+    spell.Cast(unit);
+  }
+});
+
+hunterSpells.tranquilizingShot.Callback(
+  'mechanic',
+  (spell, unit: AwfulUnit) => {
+    if (unit.los && unit.playerFacing && unit.distance < 40) {
+      spell.Cast(unit);
+    }
+  }
+);
+
+hunterSpells.freezingTrap.Callback('mechanic', (spell, unit: AwfulUnit) => {
+  if (unit.los && unit.distance < 40) {
+    spell.AoECast(unit);
+  }
+});
+
+hunterSpells.tarTrap.Callback('mechanic', (spell, unit: AwfulUnit) => {
+  if (unit.los && unit.distance <= 40) {
+    spell.AoECast(unit);
+  }
+});
+
+hunterSpells.bindingShot.Callback('mechanic', (spell, unit: AwfulUnit) => {
+  if (unit.los && unit.distance <= 30) {
+    spell.AoECast(unit);
+  }
+});
+
+hunterSpells.serpentSting.Callback('mechanic', (spell, unit: AwfulUnit) => {
+  if (unit.los && unit.playerFacing && unit.distance <= 40) {
+    spell.Cast(unit);
+  }
+});
+
+hunterSpells.intimidation.Callback('mechanic', (spell, unit: AwfulUnit) => {
+  const pet = awful.pet;
+  const target = unit as AwfulUnit;
+
+  if (!petAlive()) return;
+
+  if (target.los && target.distance < 100 && target.distanceTo(pet) < 50) {
     spell.Cast(target);
   }
 });
 
+hunterSpells.feignDeath.Callback('mechanic', (spell) => {
+  spell.Cast();
+});
+
 //#endregion Mechanic
+
+hunterSpells.disengage.Callback('forward', (spell) => {
+  if (disengageForwardInfos.inverseTime > awful.time) return;
+
+  if (spell.Cast()) {
+    hunterUI.disengageTrigger.disable();
+    disengageForwardInfos.inverseTime = awful.time + 0.05;
+  }
+});

@@ -179,7 +179,7 @@ export interface CooldownParams {
 export interface DefensivesParams {
   var: string;
   minHP: number;
-  enabled?: boolean;
+  default?: boolean;
   usable?: AwfulSpell | AwfulItem;
   checkboxText?: string;
   sliderText?: string;
@@ -291,7 +291,7 @@ export class Defensive {
       tooltip: params.usable
         ? `Use ${params.usable.name} as a defensive.`
         : params.checkboxTooltip,
-      default: params.enabled,
+      default: params.default,
     });
 
     this.slider = tab.slider({
@@ -433,6 +433,37 @@ export class Interrupt extends Checkbox {
     return (
       super.enabled() && (settings.get(varSettings.interruptsVar) as boolean)
     );
+  }
+}
+
+export class Trigger {
+  protected enable = false;
+  protected timer = 0;
+  protected readonly delay: number;
+
+  constructor(disableDelay = 1.5) {
+    this.delay = disableDelay;
+
+    awful.addUpdateCallback(() => this.update());
+  }
+
+  public enabled(): boolean {
+    return this.enable;
+  }
+
+  public disable(): void {
+    this.enable = false;
+  }
+
+  public trigger(): void {
+    this.timer = awful.time;
+    this.enable = true;
+  }
+
+  private update(): void {
+    if (this.timer < awful.time - this.delay) {
+      this.enable = false;
+    }
   }
 }
 

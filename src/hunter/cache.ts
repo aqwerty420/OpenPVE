@@ -1,8 +1,5 @@
-import {
-  fourthyFightableLosFacingUnits,
-  hunterDebuffs,
-  modeUnits,
-} from './lists';
+import { hunterDebuffs } from './lists';
+import { fourthyFightableLosFacingUnits, modeUnits } from './utility';
 
 class HunterCache {
   protected cache!: {

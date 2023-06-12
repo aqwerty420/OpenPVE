@@ -1,6 +1,13 @@
-import * as hunter from './hunter';
+import { bm } from './hunter/beastMastery';
 
 awful.ttd_enabled = true;
 awful.DevMode = true;
 
-hunter.load();
+openPVE.hunter = {};
+
+openPVE.hunter.beastMastery = awful.Actor.New({
+  spec: AwfulSpecs.First,
+  class: AwfulClasses.Hunter,
+});
+
+openPVE.hunter.beastMastery.Init(bm);

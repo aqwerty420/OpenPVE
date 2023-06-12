@@ -1,5 +1,3 @@
-import { coreCache } from '../core/cache';
-
 export const hunterBuffs = {
   aspectOfTheTurtle: 186265,
   aspectOfTheWild: 193530,
@@ -79,42 +77,3 @@ export const enum Bomb {
   Shrapnel = 270335,
   Volatile = 271045,
 }
-
-export const modeParams: IDynamicParameters = {
-  distanceFrom: 8,
-  alive: true,
-  notCc: true,
-  notBlacklisted: true,
-  immune: true,
-};
-
-const isValidUnitForModeParams = (unit: AwfulUnit): boolean => {
-  return unit.exists && !unit.dead;
-};
-
-awful.addUpdateCallback(() => {
-  const target = awful.target;
-
-  if (isValidUnitForModeParams(target)) {
-    modeParams.fromUnit = awful.target;
-  } else {
-    modeParams.fromUnit = awful.player;
-  }
-});
-
-export const modeUnits = (): AwfulList<AwfulUnit> =>
-  coreCache.getUnits(modeParams);
-
-export const fourthyFightableLosFacingParams: IDynamicParameters = {
-  distance: 40,
-  alive: true,
-  affectingCombat: true,
-  notCc: true,
-  notBlacklisted: true,
-  los: true,
-  facing: true,
-  immune: true,
-};
-
-export const fourthyFightableLosFacingUnits = (): AwfulList<AwfulUnit> =>
-  coreCache.getUnits(fourthyFightableLosFacingParams);

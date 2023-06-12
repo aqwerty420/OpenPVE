@@ -27,6 +27,8 @@ export const mCooldownsToggle = new CooldownsToggle(
 
 export const interrupts = new Toggle(varSettings.interruptsVar, 'Int: ');
 
+export const defensives = new Toggle(varSettings.defensivesVar, 'Def: ');
+
 export const generalTab = new Tab('General');
 
 generalTab.header({
@@ -161,3 +163,9 @@ generalTab.separator();
 interruptsTab.header({
   text: 'Spells',
 });
+
+export const defensivesTab = new Tab('Interrupts');
+
+// TODO: healtsone settings
+
+// TODO: potion settings

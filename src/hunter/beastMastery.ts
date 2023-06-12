@@ -1,4 +1,8 @@
+import { selectNewTarget } from '../core/rotation';
+import { canCombat, canRun } from '../core/utility';
+import { fourthyFightableLosFacingUnits, waitForBarbedShot } from './utility';
 import * as hunterSpells from './spells';
+import { defensivesHandler, interruptsHandler, petManager } from './rotation';
 
 // https://github.com/simulationcraft/simc/blob/dragonflight/profiles/Tier30/T30_Hunter_Beast_Mastery.simc
 
@@ -130,4 +134,28 @@ const cleave = (): void => {
 
   // 0 - actions.cleave+=/kill_shot
   hunterSpells.killShot();
+};
+
+export const bm = (): void => {
+  if (!canRun()) return;
+
+  selectNewTarget(fourthyFightableLosFacingUnits);
+
+  hunterSpells.barbedShot('refresh');
+
+  if (waitForBarbedShot()) return;
+
+  defensivesHandler();
+
+  petManager();
+
+  // TODO: Mechanics
+
+  // TODO: Misdirection
+
+  // TODO: Tranquilizing Shot
+
+  interruptsHandler();
+
+  if (!canCombat()) return;
 };
