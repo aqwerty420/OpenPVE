@@ -10,4 +10,4 @@ openPVE.hunter.beastMastery = awful.Actor.New({
   class: AwfulClasses.Hunter,
 });
 
-openPVE.hunter.beastMastery.Init(bm);
+openPVE.hunter.beastMastery.Init(() => bm());

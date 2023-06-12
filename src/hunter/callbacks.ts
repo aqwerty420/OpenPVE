@@ -411,6 +411,20 @@ hunterSpells.intimidation.Callback((spell) => {
   }
 });
 
+hunterSpells.freezingTrap.Callback((spell) => {
+  if (!hunterUI.freezingTrap.enabled() || !coreUI.interrupts.enabled()) return;
+
+  const enemies = fourthyEngagedLosUnits();
+
+  for (const enemy of enemies) {
+    if (canStunEnemy(enemy, 1)) {
+      if (spell.AoECast(enemy)) {
+        return;
+      }
+    }
+  }
+});
+
 //#endregion Interrupts
 
 //#region Defensive
