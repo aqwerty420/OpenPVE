@@ -82,7 +82,9 @@ const disengageForward = (): void => {
 awful.addUpdateCallback(disengageForward);
 
 export const misdirectionHandler = (): void => {
-  if (!awful.player.combat) return;
+  const player = awful.player;
+
+  if (!player.combat) return;
 
   if (hunterGui.misdirection.always()) {
     hunterSpells.misdirection();

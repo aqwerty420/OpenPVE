@@ -525,3 +525,21 @@ hunterSpells.disengage.Callback('forward', (spell) => {
     disengageForwardInfos.inverseTime = awful.time + 0.05;
   }
 });
+
+hunterSpells.misdirection.Callback((spell) => {
+  const allies = awful.group;
+
+  const pet = awful.pet;
+
+  if (!hunterUI.misdirection.usable()) return;
+
+  for (const ally of allies) {
+    if (ally.los && !ally.dead && ally.distance < 100 && ally.isTank) {
+      if (spell.Cast(ally)) return;
+    }
+  }
+
+  if (petAlive() && pet.distance < 100 && pet.los) {
+    spell.Cast(pet);
+  }
+});

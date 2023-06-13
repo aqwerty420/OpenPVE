@@ -1,4 +1,5 @@
 import { Dropdown, awfulUI } from '../core/components';
+import { fightTracker, playerHasAggro } from '../core/rotation';
 import * as coreUI from '../core/ui';
 import * as spells from './spells';
 
@@ -67,6 +68,14 @@ export class MisdirectionModeSelector extends Dropdown<MisdirectionMode> {
 
   public always(): boolean {
     return this.value() === MisdirectionMode.Always;
+  }
+
+  public usable(): boolean {
+    return (
+      this.always() ||
+      (this.engage() && fightTracker.time() < 5) ||
+      (this.aggro() && playerHasAggro())
+    );
   }
 }
 

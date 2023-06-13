@@ -151,7 +151,7 @@ export const bm = (): void => {
 
   // TODO: Mechanics
 
-  // TODO: Misdirection
+  hunterSpells.misdirection();
 
   // TODO: Tranquilizing Shot
 
