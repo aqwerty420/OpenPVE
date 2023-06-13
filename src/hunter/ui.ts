@@ -3,7 +3,7 @@ import * as coreUI from '../core/ui';
 import { MisdirectionModeSelector, PetSlotSelector } from './components';
 import * as hunterSpells from './spells';
 
-export const misdirectionMode = new MisdirectionModeSelector();
+export const misdirection = new MisdirectionModeSelector();
 
 export const maxSerpentSting = coreUI.generalTab.slider({
   var: 'maxSerpentSting',

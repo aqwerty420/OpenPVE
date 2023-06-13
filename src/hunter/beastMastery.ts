@@ -1,8 +1,14 @@
 import { selectNewTarget } from '../core/rotation';
 import { canCombat, canRun } from '../core/utility';
-import { fourthyFightableLosFacingUnits, waitForBarbedShot } from './utility';
+import {
+  fourthyFightableLosFacingUnits,
+  isSingleTarget,
+  waitForBarbedShot,
+} from './utility';
 import * as hunterSpells from './spells';
 import { defensivesHandler, interruptsHandler, petManager } from './rotation';
+import { bigWigsTimeLine } from '../core/bigWigs';
+import * as hunterUI from './ui';
 
 // https://github.com/simulationcraft/simc/blob/dragonflight/profiles/Tier30/T30_Hunter_Beast_Mastery.simc
 
@@ -136,6 +142,29 @@ const cleave = (): void => {
   hunterSpells.killShot();
 };
 
+const cds = (): void => {
+  // actions.cds=invoke_external_buff,name=power_infusion,if=buff.bestial_wrath.up|cooldown.bestial_wrath.remains<30
+  // actions.cds+=/berserking,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<13
+  // actions.cds+=/blood_fury,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<16
+  // actions.cds+=/ancestral_call,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<16
+  // actions.cds+=/fireblood,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<9
+  // actions.cds+=/potion,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&(buff.bestial_wrath.up&(buff.bloodlust.up|target.health.pct<20))|fight_remains<31
+};
+
+const opener = (): void => {
+  const pulltimer = bigWigsTimeLine.pullTimer();
+
+  if (pulltimer === 0 || pulltimer < 0.5) return;
+
+  if (pulltimer <= 1.5) hunterSpells.steelTrap();
+
+  if (
+    pulltimer <= hunterSpells.wailingArrow.castTime + awful.buffer &&
+    (!hunterSpells.steelTrap.usable || !hunterUI.wailingArrow.usable())
+  )
+    hunterSpells.wailingArrow();
+};
+
 export const bm = (): void => {
   if (!canRun()) return;
 
@@ -157,5 +186,16 @@ export const bm = (): void => {
 
   interruptsHandler();
 
+  opener();
+
   if (!canCombat()) return;
+
+  StartAttack();
+
+  // Trinkets
+
+  // cds
+
+  if (isSingleTarget()) st();
+  else cleave();
 };

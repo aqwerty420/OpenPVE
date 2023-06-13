@@ -1,6 +1,7 @@
 import { coreCache } from '../core/cache';
-import { petBuffs } from './lists';
+import { hunterTalents, petBuffs } from './lists';
 import * as hunterSpells from './spells';
+import * as coreUI from '../core/ui';
 
 export const modeParams: IDynamicParameters = {
   distanceFrom: 8,
@@ -79,6 +80,16 @@ export const waitForBarbedShot = (): boolean => {
     pet.buffRemains(petBuffs.frenzy) <= awful.gcd + awful.buffer * 2 &&
     pet.buffRemains(petBuffs.frenzy) >=
       hunterSpells.barbedShot.cd + awful.buffer
+  );
+};
+
+export const isSingleTarget = (): boolean => {
+  const player = awful.player;
+  const enemiesAround = modeUnits().length;
+  return (
+    coreUI.rotationMode.singleTarget() ||
+    enemiesAround < 2 ||
+    (!player.hasTalent(hunterTalents.beastCleave) && enemiesAround < 3)
   );
 };
 
