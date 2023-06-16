@@ -40,7 +40,7 @@ class Trinket {
     return ignoreGriefTorche === true && this.trinket?.id === 194308;
   }
 
-  public use(options: TrinketOptions): boolean {
+  public use(options?: TrinketOptions): boolean {
     const player = awful.player;
 
     if (!this.canUse()) return false;
