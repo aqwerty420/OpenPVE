@@ -603,7 +603,7 @@ export const damageImmuneData = [
 ];
 
 export class Dictionnary {
-  private dictionary: { [key: number | string]: boolean } = {};
+  private dictionary: Record<string | number, boolean> = {};
 
   constructor(list: Array<number | string>) {
     for (const key of list) {

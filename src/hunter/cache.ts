@@ -4,7 +4,7 @@ import { fourthyFightableLosFacingUnits, modeUnits } from './utility';
 class HunterCache {
   protected cache!: {
     lowestBarbedShot?: AwfulUnit;
-    minSerpentStingByTTD?: { [key: string]: AwfulUnit };
+    minSerpentStingByTTD?: Record<string, AwfulUnit>;
   };
 
   constructor() {
