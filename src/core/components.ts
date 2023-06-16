@@ -106,6 +106,10 @@ export class Tab {
   public delay(params: DelayParams): Delay {
     return new Delay(this, params);
   }
+
+  public statusFrameHandler(): StatusFrameHandler {
+    return new StatusFrameHandler(this.tab);
+  }
 }
 
 export class Group {
@@ -226,6 +230,30 @@ export class Checkbox {
 
   public toggle(): void {
     settings.set(this.var, !this.enabled());
+  }
+}
+
+export class StatusFrameHandler extends Checkbox {
+  private statusFrameVisible = true;
+
+  constructor(tab: AwfulTab) {
+    super(tab, {
+      var: 'statusFrameDisabler',
+      text: 'Hide Status frame',
+      tooltip: 'Hides the status frame when enabled.',
+      default: false,
+    });
+    awful.addUpdateCallback(() => this.update());
+  }
+
+  public update(): void {
+    if (this.statusFrameVisible && this.enabled()) {
+      statusFrame.Hide();
+      this.statusFrameVisible = !this.statusFrameVisible;
+    } else if (!this.statusFrameVisible && !this.enabled()) {
+      statusFrame.Show();
+      this.statusFrameVisible = !this.statusFrameVisible;
+    }
   }
 }
 

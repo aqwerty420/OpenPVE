@@ -5,6 +5,7 @@ import {
   Tab,
   Toggle,
   varSettings,
+  awfulUI,
 } from './components';
 
 import * as coreItems from './items';
@@ -20,16 +21,16 @@ export const cooldownsToggle = new CooldownsToggle(
   'Cds: '
 );
 
-export const mCooldownsToggle = new CooldownsToggle(
+export const miniCooldownsToggle = new CooldownsToggle(
   varSettings.mCdsToggleVar,
   varSettings.mCdsDisableVar,
   varSettings.mCdsDisableValueVar,
   'M.Cds: '
 );
 
-export const interrupts = new Toggle(varSettings.interruptsVar, 'Int: ');
+export const interruptsToggle = new Toggle(varSettings.interruptsVar, 'Int: ');
 
-export const defensives = new Toggle(varSettings.defensivesVar, 'Def: ');
+export const defensivesToggle = new Toggle(varSettings.defensivesVar, 'Def: ');
 
 export const generalTab = new Tab('General');
 
@@ -57,6 +58,8 @@ export const autoTarget = generalTab.checkbox({
 });
 
 //TODO: dynamic targetting modes (most hp, closest enemy, highest threat, etc)
+
+export const statusFrameHandler = generalTab.statusFrameHandler();
 
 export const cooldownsTab = new Tab('Cooldowns');
 
@@ -178,4 +181,35 @@ export const refreshingHealingPotion = defensivesTab.playerDefensive({
   var: 'refreshingHealingPotion',
   usable: coreItems.refreshingHealingPotionThree,
   minHP: 40,
+});
+
+awfulUI.cmd.New((msg: string) => {
+  switch (msg) {
+    case 'sf':
+      statusFrameHandler.toggle();
+      break;
+
+    case 'mode':
+      rotationMode.invert();
+      break;
+
+    case 'cooldowns':
+      cooldownsToggle.invert();
+      break;
+
+    case 'miniCooldowns':
+      miniCooldownsToggle.invert();
+      break;
+
+    case 'defensives':
+      defensivesToggle.invert();
+      break;
+
+    case 'interrupts':
+      interruptsToggle.invert();
+      break;
+
+    default:
+      break;
+  }
 });
