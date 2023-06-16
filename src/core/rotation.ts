@@ -1,4 +1,4 @@
-import { coreCache } from './cache';
+import { IDynamicParameters, coreCache } from './cache';
 import {
   healthStone,
   refreshingHealingPotionOne,

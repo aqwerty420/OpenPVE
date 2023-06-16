@@ -1,10 +1,32 @@
-class Trinket {
-  private slot: number;
-  private trinket: AwfulItem | null;
+interface TrinketOptions {
+  ignoreGriefTorche?: boolean;
+}
 
-  constructor(slot: number) {
+const trinketsCache: Record<number, AwfulItem> = {};
+
+class Trinket {
+  private readonly slot: number;
+  private readonly options: TrinketOptions;
+  private trinket?: AwfulItem;
+
+  constructor(slot: number, options?: TrinketOptions) {
     this.slot = slot;
-    this.trinket = null;
+    this.options = options ?? {};
+    this.updateAwfulItem();
+  }
+
+  private getAwfulItem(): AwfulItem | undefined {
+    const itemId = GetInventoryItemID('player', this.slot);
+
+    if (itemId === 0) return undefined;
+
+    if (trinketsCache[itemId] !== undefined) return trinketsCache[itemId];
+
+    return awful.NewItem(itemId);
+  }
+
+  private updateAwfulItem(): void {
+    this.trinket = this.getAwfulItem();
   }
 
   private canUse(): boolean {
@@ -12,18 +34,24 @@ class Trinket {
     return enable === 1 && start === 0;
   }
 
-  public use(ignoreGriefTorche = false): boolean {
+  private ignoreGriefTorche(options?: TrinketOptions): boolean {
+    const ignoreGriefTorche =
+      options?.ignoreGriefTorche ?? this.options.ignoreGriefTorche;
+    return ignoreGriefTorche === true && this.trinket?.id === 194308;
+  }
+
+  public use(options: TrinketOptions): boolean {
     const player = awful.player;
 
     if (!this.canUse()) return false;
 
-    const itemId = GetInventoryItemID('player', this.slot);
-    if (this.trinket === null || this.trinket.id != itemId)
-      this.trinket = awful.NewItem(itemId);
+    this.updateAwfulItem();
+
+    if (this.trinket === undefined) return false;
 
     if (this.trinket.casttime > 0 && player.moving) return false;
 
-    if (ignoreGriefTorche === true && itemId === 194308) return false;
+    if (this.ignoreGriefTorche(options)) return false;
 
     if (this.trinket.Use(awful.target)) return true;
 
@@ -41,5 +69,3 @@ export const healthStone = newItem(5512);
 export const refreshingHealingPotionOne = newItem(191378);
 export const refreshingHealingPotionTwo = newItem(191379);
 export const refreshingHealingPotionThree = newItem(191380);
-
-refreshingHealingPotionOne.Use();

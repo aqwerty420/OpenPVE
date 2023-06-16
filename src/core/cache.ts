@@ -1,12 +1,26 @@
 import { unitBlacklist } from './lists';
 import { isDamageImmune, isGroupTagged } from './utility';
 
-interface AwfulUnitCache {
-  [key: string]: AwfulList<AwfulUnit>;
+export interface IDynamicParameters {
+  melee?: true;
+  distance?: number;
+  distanceLiteral?: number;
+  fromUnit?: AwfulUnit;
+  meleeFrom?: true;
+  distanceFrom?: number;
+  distanceFromLiteral?: number;
+  alive?: true;
+  affectingCombat?: true;
+  notCc?: true;
+  notBlacklisted?: true;
+  los?: true;
+  facing?: true;
+  facingPlayer?: true;
+  immune?: true;
 }
 
 class UnitCache {
-  protected cache!: AwfulUnitCache;
+  protected cache!: Record<string, AwfulList<AwfulUnit>>;
 
   constructor() {
     awful.addUpdateCallback(() => this.reset());

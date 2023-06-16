@@ -1,4 +1,4 @@
-import { coreCache } from '../core/cache';
+import { IDynamicParameters, coreCache } from '../core/cache';
 import { hunterTalents, petBuffs } from './lists';
 import * as hunterSpells from './spells';
 import * as coreUI from '../core/ui';
@@ -42,11 +42,7 @@ export const fourthyFightableLosFacingParams: IDynamicParameters = {
 export const fourthyFightableLosFacingUnits = (): AwfulList<AwfulUnit> =>
   coreCache.getUnits(fourthyFightableLosFacingParams);
 
-export const petAlive = (): boolean => {
-  const pet = awful.pet;
-
-  return pet.exists && !pet.dead;
-};
+export const petAlive = (): boolean => awful.pet.exists && !awful.pet.dead;
 
 export const fourthyEngagedLosFacingParams: IDynamicParameters = {
   distance: 40,

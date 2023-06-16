@@ -192,9 +192,9 @@ export const bm = (): void => {
 
   StartAttack();
 
-  // Trinkets
+  // TODO: Trinkets
 
-  // cds
+  cds();
 
   if (isSingleTarget()) st();
   else cleave();
