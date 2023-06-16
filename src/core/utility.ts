@@ -1,4 +1,3 @@
-import { coreCache } from './cache';
 import {
   kickCast,
   kickChanneled,

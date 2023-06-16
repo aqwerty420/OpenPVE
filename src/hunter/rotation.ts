@@ -30,6 +30,7 @@ export const petManager = (): void => {
 
 const defensives = [
   hunterSpells.exhilaration,
+  ...coreDefensives,
   hunterSpells.aspectOfTheTurtle,
   hunterSpells.feignDeath,
 ];
@@ -40,7 +41,6 @@ export const defensivesHandler = (): void => {
   if (!player.combat) return;
 
   callAll(defensives);
-  callAll(coreDefensives);
 };
 
 const interrupts = [
