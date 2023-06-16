@@ -10,27 +10,27 @@ import {
 
 import * as coreItems from './items';
 
-export const rotationToggle = new RotationToggle();
+export const rotation = new RotationToggle();
 
-export const rotationMode = new RotationModeSwitch();
+export const mode = new RotationModeSwitch();
 
-export const cooldownsToggle = new CooldownsToggle(
+export const cooldowns = new CooldownsToggle(
   varSettings.cdsToggleVar,
   varSettings.cdsDisableVar,
   varSettings.cdsDisableValueVar,
   'Cds: '
 );
 
-export const miniCooldownsToggle = new CooldownsToggle(
+export const miniCooldowns = new CooldownsToggle(
   varSettings.mCdsToggleVar,
   varSettings.mCdsDisableVar,
   varSettings.mCdsDisableValueVar,
   'M.Cds: '
 );
 
-export const interruptsToggle = new Toggle(varSettings.interruptsVar, 'Int: ');
+export const interrupts = new Toggle(varSettings.interruptsVar, 'Int: ');
 
-export const defensivesToggle = new Toggle(varSettings.defensivesVar, 'Def: ');
+export const defensives = new Toggle(varSettings.defensivesVar, 'Def: ');
 
 export const generalTab = new Tab('General');
 
@@ -190,23 +190,23 @@ awfulUI.cmd.New((msg: string) => {
       break;
 
     case 'mode':
-      rotationMode.invert();
+      mode.invert();
       break;
 
     case 'cooldowns':
-      cooldownsToggle.invert();
+      cooldowns.invert();
       break;
 
     case 'miniCooldowns':
-      miniCooldownsToggle.invert();
+      miniCooldowns.invert();
       break;
 
     case 'defensives':
-      defensivesToggle.invert();
+      defensives.invert();
       break;
 
     case 'interrupts':
-      interruptsToggle.invert();
+      interrupts.invert();
       break;
 
     default:

@@ -83,7 +83,7 @@ export const isSingleTarget = (): boolean => {
   const player = awful.player;
   const enemiesAround = modeUnits().length;
   return (
-    coreUI.rotationMode.singleTarget() ||
+    coreUI.mode.singleTarget() ||
     enemiesAround < 2 ||
     (!player.hasTalent(hunterTalents.beastCleave) && enemiesAround < 3)
   );

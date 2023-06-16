@@ -52,7 +52,7 @@ hunterSpells.barbedShot.Callback('refresh', (spell) => {
     frenzyRemain <= awful.gcd + awful.buffer * 2 &&
     frenzyRemain >= awful.buffer
   )
-    if (coreUI.rotationMode.singleTarget()) spell.Cast(awful.target);
+    if (coreUI.mode.singleTarget()) spell.Cast(awful.target);
     else barbedShotLowestCallback(spell);
 });
 
@@ -73,7 +73,7 @@ hunterSpells.barbedShot.Callback('bm.barbedShot.st.1', (spell) => {
       hunterUI.bestialWrath.usable() &&
       hunterSpells.bestialWrath.cd <= awful.gcd)
   )
-    if (coreUI.rotationMode.singleTarget()) spell.Cast(awful.target);
+    if (coreUI.mode.singleTarget()) spell.Cast(awful.target);
     else barbedShotLowestCallback(spell);
 });
 
@@ -103,7 +103,7 @@ hunterSpells.barbedShot.Callback('bm.barbedShot.st.2', (spell) => {
               awful.buffer))) ||
     awful.FightRemains() < 9
   )
-    if (coreUI.rotationMode.singleTarget()) spell.Cast(awful.target);
+    if (coreUI.mode.singleTarget()) spell.Cast(awful.target);
     else barbedShotLowestCallback(spell);
 });
 
