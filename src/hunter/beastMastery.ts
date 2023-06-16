@@ -10,6 +10,7 @@ import { defensivesHandler, interruptsHandler, petManager } from './rotation';
 import { bigWigsTimeLine } from '../core/bigWigs';
 import * as hunterUI from './ui';
 import { load } from './callbacks';
+import * as coreSpells from '../core/spells';
 
 load();
 
@@ -69,11 +70,13 @@ const st = (): void => {
   // 0 - actions.st+=/wailing_arrow,if=pet.main.buff.frenzy.remains>execute_time|target.time_to_die<5
   hunterSpells.wailingArrow();
 
-  // TODO - actions.st+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
+  // 0 - actions.st+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
+  coreSpells.bagOfTricks();
 
   // TODO - actions.st+=/arcane_pulse,if=buff.bestial_wrath.down|target.time_to_die<5
 
-  // TODO - actions.st+=/arcane_torrent,if=(focus+focus.regen+15)<focus.max
+  // 1 - actions.st+=/arcane_torrent,if=(focus+focus.regen+15)<focus.max
+  coreSpells.arcaneTorrent('bm.arcaneTorrent.st.1');
 };
 
 const cleave = (): void => {
@@ -121,7 +124,7 @@ const cleave = (): void => {
   // 0 - actions.cleave+=/dire_beast
   hunterSpells.direBeast();
 
-  // actions.cleave+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
+  // TODO - actions.cleave+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
 
   // 1 - actions.cleave+=/barrage,if=pet.main.buff.frenzy.remains>execute_time
   hunterSpells.barrage('bm.barrage.cleave.1');
@@ -137,21 +140,26 @@ const cleave = (): void => {
   // 0 - actions.cleave+=/wailing_arrow,if=pet.main.buff.frenzy.remains>execute_time|fight_remains<5
   hunterSpells.wailingArrow();
 
-  // TODO - actions.cleave+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
+  // 0 - actions.cleave+=/bag_of_tricks,if=buff.bestial_wrath.down|target.time_to_die<5
+  coreSpells.bagOfTricks();
 
-  // TODO - actions.cleave+=/arcane_torrent,if=(focus+focus.regen+30)<focus.max
+  // 1 - actions.cleave+=/arcane_torrent,if=(focus+focus.regen+30)<focus.max
+  coreSpells.arcaneTorrent('bm.arcaneTorrent.cleave.1');
 
   // 0 - actions.cleave+=/kill_shot
   hunterSpells.killShot();
 };
 
 const cds = (): void => {
-  // actions.cds=invoke_external_buff,name=power_infusion,if=buff.bestial_wrath.up|cooldown.bestial_wrath.remains<30
-  // actions.cds+=/berserking,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<13
-  // actions.cds+=/blood_fury,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<16
-  // actions.cds+=/ancestral_call,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<16
-  // actions.cds+=/fireblood,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&buff.bestial_wrath.up|fight_remains<9
-  // actions.cds+=/potion,if=buff.call_of_the_wild.up|!talent.call_of_the_wild&(buff.bestial_wrath.up&(buff.bloodlust.up|target.health.pct<20))|fight_remains<31
+  coreSpells.ancestralCall();
+
+  coreSpells.fireblood();
+
+  coreSpells.berserking();
+
+  coreSpells.bloodFury();
+
+  coreSpells.lightsJudgment();
 };
 
 const opener = (): void => {

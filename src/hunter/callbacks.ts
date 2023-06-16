@@ -2,7 +2,12 @@ import * as hunterSpells from './spells';
 import * as hunterUI from './ui';
 import * as coreUI from '../core/ui';
 import { petBuffs, hunterTalents, hunterBuffs } from './lists';
-import { executeTime, fullRechargeTime, timeToMax } from '../core/simc';
+import {
+  castRegen,
+  executeTime,
+  fullRechargeTime,
+  timeToMax,
+} from '../core/simc';
 import { hunterCache } from './cache';
 import {
   canCombat,
@@ -17,6 +22,7 @@ import {
   fourthyFightableLosFacingUnits,
   petAlive,
 } from './utility';
+import * as coreSpells from '../core/spells';
 
 //#region DPS
 
@@ -517,6 +523,8 @@ hunterSpells.feignDeath.Callback('mechanic', (spell) => {
 
 //#endregion Mechanic
 
+//#region Miscs
+
 hunterSpells.disengage.Callback('forward', (spell) => {
   if (disengageForwardInfos.inverseTime > awful.time) return;
 
@@ -541,6 +549,85 @@ hunterSpells.misdirection.Callback((spell) => {
 
   if (petAlive() && pet.distance < 100 && pet.los) {
     spell.Cast(pet);
+  }
+});
+
+//#endregion Miscs
+
+//#region Racials
+
+const racialCallback = (spell: AwfulSpell): void => {
+  if (coreUI.racial === undefined) return;
+
+  if (coreUI.racial.usable()) {
+    spell.Cast();
+  }
+};
+
+coreSpells.bloodFury.Callback(racialCallback);
+
+coreSpells.ancestralCall.Callback(racialCallback);
+
+coreSpells.fireblood.Callback(racialCallback);
+
+coreSpells.berserking.Callback(racialCallback);
+
+coreSpells.arcaneTorrent.Callback(racialCallback);
+
+coreSpells.arcaneTorrent.Callback('bm.arcaneTorrent.st.1', (spell) => {
+  const player = awful.player;
+
+  if (coreUI.racial === undefined) return;
+
+  if (
+    coreUI.racial.usable() &&
+    player.focus + castRegen(coreSpells.arcaneTorrent) + 15 < player.focusMax
+  ) {
+    spell.Cast();
+  }
+});
+
+coreSpells.arcaneTorrent.Callback('bm.arcaneTorrent.cleave.1', (spell) => {
+  const player = awful.player;
+
+  if (coreUI.racial === undefined) return;
+
+  if (
+    coreUI.racial.usable() &&
+    player.focus + castRegen(coreSpells.arcaneTorrent) + 30 < player.focusMax
+  ) {
+    spell.Cast();
+  }
+});
+
+coreSpells.lightsJudgment.Callback((spell) => {
+  const player = awful.player;
+  const target = awful.target;
+
+  if (coreUI.racial === undefined) return;
+
+  if (
+    !player.buff(hunterBuffs.trueShot) &&
+    !player.buff(hunterBuffs.bestialWrath) &&
+    coreUI.racial.usable()
+  ) {
+    spell.AoECast(target);
+  }
+});
+
+coreSpells.bagOfTricks.Callback((spell) => {
+  const player = awful.player;
+  const target = awful.target;
+
+  if (coreUI.racial === undefined) return;
+
+  if (
+    ((!player.buff(hunterBuffs.trueShot) &&
+      !player.buff(hunterBuffs.bestialWrath)) ||
+      awful.FightRemains() < 5) &&
+    coreUI.racial.usable()
+  ) {
+    spell.Cast(target);
   }
 });
 

@@ -6,7 +6,9 @@ import {
   Toggle,
   varSettings,
   awfulUI,
+  CooldownMode,
 } from './components';
+import * as coreSpells from './spells';
 
 import * as coreItems from './items';
 
@@ -127,6 +129,35 @@ export const mCdsDisablerValue = cooldownsTab.slider({
 });
 
 cooldownsTab.separator();
+
+const racials = [
+  coreSpells.bloodFury,
+  coreSpells.ancestralCall,
+  coreSpells.fireblood,
+  coreSpells.lightsJudgment,
+  coreSpells.bagOfTricks,
+  coreSpells.berserking,
+  coreSpells.arcaneTorrent,
+];
+
+export const getRacialSpell = (): AwfulSpell | undefined => {
+  for (const racial of racials) {
+    if (racial.known) return racial;
+  }
+
+  return undefined;
+};
+
+const racialSpell = getRacialSpell();
+
+export const racial =
+  racialSpell != undefined
+    ? cooldownsTab.cooldown({
+        var: 'racial',
+        usable: racialSpell,
+        default: CooldownMode.Toggle,
+      })
+    : undefined;
 
 export const interruptsTab = new Tab('Interrupts');
 
