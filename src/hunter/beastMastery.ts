@@ -9,6 +9,9 @@ import * as hunterSpells from './spells';
 import { defensivesHandler, interruptsHandler, petManager } from './rotation';
 import { bigWigsTimeLine } from '../core/bigWigs';
 import * as hunterUI from './ui';
+import { load } from './callbacks';
+
+load();
 
 // https://github.com/simulationcraft/simc/blob/dragonflight/profiles/Tier30/T30_Hunter_Beast_Mastery.simc
 

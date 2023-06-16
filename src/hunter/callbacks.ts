@@ -543,3 +543,7 @@ hunterSpells.misdirection.Callback((spell) => {
     spell.Cast(pet);
   }
 });
+
+export const load = (): void => {
+  //
+};
