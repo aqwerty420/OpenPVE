@@ -22,6 +22,9 @@ class Trinket {
 
     if (trinketsCache[itemId] !== undefined) return trinketsCache[itemId];
 
+    const item = awful.NewItem(itemId);
+    trinketsCache[itemId] = item;
+
     return awful.NewItem(itemId);
   }
 
