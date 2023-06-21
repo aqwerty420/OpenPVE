@@ -8,9 +8,7 @@
       "awful-types"
     ],
     "outDir": "./dist",
-    "moduleResolution": "node",
     "strict": true,
-    "forceConsistentCasingInFileNames": false,
   },
   "tstl": {
     "noHeader": true,
