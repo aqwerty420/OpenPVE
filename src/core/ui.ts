@@ -200,7 +200,7 @@ interruptsTab.header({
   text: 'Spells',
 });
 
-export const defensivesTab = new Tab('Interrupts');
+export const defensivesTab = new Tab('Defensives');
 
 export const healthStone = defensivesTab.playerDefensive({
   var: 'healthStone',
