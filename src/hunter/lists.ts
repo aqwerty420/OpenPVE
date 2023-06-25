@@ -77,3 +77,5 @@ export const enum Bomb {
   Shrapnel = 270335,
   Volatile = 271045,
 }
+
+export const serpentStingDuration = 12;

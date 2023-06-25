@@ -56,7 +56,8 @@ const st = (): void => {
   // 0 - actions.st+=/dire_beast
   hunterSpells.direBeast();
 
-  // TODO - actions.st+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
+  // 1 - actions.st+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
+  hunterSpells.serpentSting('bm.serpentSting.st.1');
 
   // 0 - actions.st+=/kill_shot
   hunterSpells.killShot();
@@ -124,7 +125,8 @@ const cleave = (): void => {
   // 0 - actions.cleave+=/dire_beast
   hunterSpells.direBeast();
 
-  // TODO - actions.cleave+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
+  // 1 - actions.cleave+=/serpent_sting,target_if=min:remains,if=refreshable&target.time_to_die>duration
+  hunterSpells.serpentSting('bm.serpentSting.cleave.1');
 
   // 1 - actions.cleave+=/barrage,if=pet.main.buff.frenzy.remains>execute_time
   hunterSpells.barrage('bm.barrage.cleave.1');

@@ -1,11 +1,18 @@
 import * as hunterSpells from './spells';
 import * as hunterUI from './ui';
 import * as coreUI from '../core/ui';
-import { petBuffs, hunterTalents, hunterBuffs } from './lists';
+import {
+  petBuffs,
+  hunterTalents,
+  hunterBuffs,
+  serpentStingDuration,
+  hunterDebuffs,
+} from './lists';
 import {
   castRegen,
   executeTime,
   fullRechargeTime,
+  isRefreshableDebuff,
   timeToMax,
 } from '../core/simc';
 import { hunterCache } from './cache';
@@ -283,6 +290,27 @@ const explosiveShotCallback = (spell: AwfulSpell): boolean => {
 };
 
 hunterSpells.explosiveShot.Callback(explosiveShotCallback);
+
+const serpentStingLowestForFullDuration = (spell: AwfulSpell): void => {
+  const lowestSerpentSting =
+    hunterCache.minSerpentStingRemains(serpentStingDuration);
+
+  if (
+    isRefreshableDebuff(lowestSerpentSting, hunterDebuffs.serpentSting) &&
+    lowestSerpentSting.target.ttd > serpentStingDuration
+  )
+    spell.Cast(lowestSerpentSting.target);
+};
+
+hunterSpells.serpentSting.Callback(
+  'bm.serpentSting.cleave.1',
+  serpentStingLowestForFullDuration
+);
+
+hunterSpells.serpentSting.Callback(
+  'bm.serpentSting.st.1',
+  serpentStingLowestForFullDuration
+);
 
 hunterSpells.bestialWrath.Callback((spell) => {
   const player = awful.player;
