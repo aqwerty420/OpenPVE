@@ -75,6 +75,7 @@ const kickCastData = [
   //Lightning Bolt
   372394,
   //#endregion Vault of the Incarnates
+  
   //#region Aberrus the Shadowed Crucible
   // Lava bolt
   397386,
@@ -84,9 +85,8 @@ const kickCastData = [
   406210,
   // Zone of Azure Might
   406399,
-  // Activate Dragonfire Trap
-  405886,
   //#endregion Aberrus the Shadowed Crucible
+
   //#region Underrot
   //Dark Reconstitution
   265089,
@@ -437,6 +437,11 @@ const kickChannelingData = [
 ];
 
 const kickChanneledData = [
+  //#region Aberrus the Shadowed Crucible
+  // Activate Dragonfire Trap
+  405886,
+  //#endregion Aberrus the Shadowed Crucible
+
   //#region Algeth'ar Academy
   // Monotonous Lecture
   388392,
