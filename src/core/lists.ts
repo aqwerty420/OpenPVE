@@ -57,7 +57,7 @@ const unitStunBlacklistData = [
 ];
 
 const kickCastData = [
-  //#region Raid
+  //#region Vault of the Incarnates
   // Burst
   388635,
   //volatile
@@ -74,8 +74,19 @@ const kickCastData = [
   372315,
   //Lightning Bolt
   372394,
-  //#endregion Raid
-
+  //#endregion Vault of the Incarnates
+  //#region Aberrus the Shadowed Crucible
+  // Lava bolt
+  397386,
+  // Blasting Scream
+  404754,
+  // Healing bloom
+  406210,
+  // Zone of Azure Might
+  406399,
+  // Activate Dragonfire Trap
+  405886,
+  //#endregion Aberrus the Shadowed Crucible
   //#region Underrot
   //Dark Reconstitution
   265089,
