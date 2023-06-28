@@ -9,7 +9,6 @@ import {
   CooldownMode,
 } from './components';
 import * as coreSpells from './spells';
-
 import * as coreItems from './items';
 
 export const rotation = new RotationToggle();
@@ -129,6 +128,20 @@ export const mCdsDisablerValue = cooldownsTab.slider({
 });
 
 cooldownsTab.separator();
+
+export const trinket1 = cooldownsTab.cooldown({
+  var: 'trinket1',
+  header: 'Trinket 1',
+  tooltip: 'Trinket 1 usage mode.',
+  default: CooldownMode.Toggle,
+});
+
+export const trinket2 = cooldownsTab.cooldown({
+  var: 'trinket2',
+  header: 'Trinket 2',
+  tooltip: 'Trinket 2 usage mode.',
+  default: CooldownMode.Toggle,
+});
 
 const racials = [
   coreSpells.bloodFury,

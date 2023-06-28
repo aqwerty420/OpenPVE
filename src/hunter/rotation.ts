@@ -2,7 +2,7 @@ import * as hunterUI from './ui';
 import { disengageForwardInfos, petStatus } from './utility';
 import * as hunterSpells from './spells';
 import { callAll } from '../core/utility';
-import { coreDefensives } from '../core/rotation';
+import { coreDefensives, coreTrinkets } from '../core/rotation';
 
 const callPet = (): void => {
   const pet = awful.pet;
@@ -41,6 +41,14 @@ export const defensivesHandler = (): void => {
   if (!player.combat) return;
 
   callAll(defensives);
+};
+
+export const trinketsHanlder = (): void => {
+  const player = awful.player;
+
+  if (!player.combat) return;
+
+  callAll(coreTrinkets);
 };
 
 const interrupts = [

@@ -8,7 +8,9 @@
       "awful-types"
     ],
     "outDir": "./dist",
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "skipLibCheck": true
   },
   "tstl": {
     "noHeader": true,

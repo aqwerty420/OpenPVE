@@ -6,7 +6,12 @@ import {
   waitForBarbedShot,
 } from './utility';
 import * as hunterSpells from './spells';
-import { defensivesHandler, interruptsHandler, petManager } from './rotation';
+import {
+  defensivesHandler,
+  interruptsHandler,
+  petManager,
+  trinketsHanlder,
+} from './rotation';
 import { bigWigsTimeLine } from '../core/bigWigs';
 import * as hunterUI from './ui';
 import { load } from './callbacks';
@@ -205,7 +210,7 @@ export const bm = (): void => {
 
   StartAttack();
 
-  // TODO: Trinkets
+  trinketsHanlder();
 
   cds();
 

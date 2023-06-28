@@ -1,4 +1,4 @@
-interface TrinketOptions {
+export interface TrinketOptions {
   ignoreGriefTorche?: boolean;
 }
 

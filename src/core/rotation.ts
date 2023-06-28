@@ -1,9 +1,12 @@
 import { IDynamicParameters, coreCache } from './cache';
 import {
+  TrinketOptions,
   healthStone,
   refreshingHealingPotionOne,
   refreshingHealingPotionThree,
   refreshingHealingPotionTwo,
+  trinket1,
+  trinket2,
 } from './items';
 import * as coreUI from './ui';
 import { canCombat, useItem } from './utility';
@@ -59,6 +62,13 @@ export const playerHasAggro = (units = unitsAround): boolean => {
 
   return false;
 };
+
+export const coreTrinkets = [
+  (options?: TrinketOptions) =>
+    coreUI.trinket1.usable() && trinket1.use(options),
+  (options?: TrinketOptions) =>
+    coreUI.trinket2.usable() && trinket2.use(options),
+];
 
 class FightTracker {
   private fightStart = 0;
