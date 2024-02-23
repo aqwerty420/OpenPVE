@@ -13,7 +13,7 @@
     "@typescript-eslint/parser": "5.60.1",
     "@typescript-to-lua/language-extensions": "^1.0.0",
     "awful-types": "^2.0.1",
-    "eslint": "8.44.0",
+    "eslint": "8.57.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
     "lua-types": "^2.13.1",
